@@ -102,9 +102,40 @@
         <br>
         <div class="container">
             <h3>I. Design concepts</h3>
+            <p>In order to center conceptually around the design process, we step through the <i>10 plus 10</i> design procedure. This seven-step process begins with a formal statement of the design challenge.</p>
+            <h4>The design challenge</h4>
+            <p>There are many existing solutions for internet navigation for those who cannot see the screen (either because of limited vision, or those who situationally do not have access to a screen); most involve discarding the spatial dimension of a website. For example, screen-readers narrate a website content from top to bottom; this reduces the 2-dimensional layout of the website into a 1-dimensional stream, which users can only travserse in one of two directions. For example, passing from the top to the middle of the page necessitates moving through all of the content in between. Eye-tracking data suggest that there are numerous patterns of visual search across a website, including an "F-shaped" pattern in which users scan alternately vertically and horizontally [1].
+            <br><br>
+            In this design challenge, we seek to bring the additional degree of freedom of 2-dimensional website navigation to those that cannot see a screen. In particular, <i>how can we convey the spatial layout of a website using audio?</i></p>
+            
+            <div class="citation">[1] Wang, Qiuzhen, Sa Yang, Manlu Liu, Zike Cao, and Qingguo Ma. 2014. "An eye-tracking study of website complexity from cognitive load perspective." <cite>Decision Support Systems</cite> 62: 1-10.</div>
+            
             <br>
-            <p>QAQ</p>
             <br>
+            <h4>The design concept</h4>
+            An initial round of sketching leads the team to the following basic design, which forms the basis for ten futher variations. A detailed description follows below.
+            <br>
+            <img class="image_map" src="sketch1.jpeg" alt="Premise of auditory mapping device">
+            <br>
+
+            <b>Description.</b> These sketches are meant to be self-explanatory; however, for the curious reader we provide detailed information in this paragraph. The user is wearing head phones and has access to a standard mouse or trackpad device. In the top figure, the dotted box represents an audio field, i.e., audio that has been mapped to the left and right speakers of the heaphones to create some illusion of a three-dimensional space. In the second figure, three schematic links, labeled "1" "2" and "3," are shown near a cursor. These links are assigned auditory "icons," indicated by the speakers in the third figure. Based on their spatial relationship to the cursor, these auditory icons are mapped to different locations in the audio field. As an example, we show a hemi-cylindrical field.
+            <br><br>
+            This design shows considerable promise, but the format permits many possible variations; specifically, there are many ways to map the locations of the links to an audio field. We explore these possibilities in the next step of the <i>10 plus 10</i> methodology, by sketching ten variations on this theme.
+            <br><br>
+            <img class="image_map" src="sketch2.jpeg" alt="A second overview">
+            <b>Description.</b> A secondary early sketch of links, layouts and auditory icons. We introduce the phrase "cocktail party" to refer to the "cocktail party problem," a phenomenon in auditory psychology refering a human auditor's natural ability to pick out and focus on one voice from among many intermingled in a crowd. To what extent can the team take advantage of this phenomenon, and turn a busy website layout into an auditory cocktail party?
+            <br><br>
+            <img class="image_map" src="sketch3.jpeg" alt="Three initial variations">
+            <b>Description.</b> Three initial variations. We determine early on in the sketching process that it is useful to give each sketch a nickname, when discussing the relative merits and problems of each. The first sketch is "<i>the straight-forward</i>": here, the website is mapped to a flat plane that recedes away from the user. Links higher up the page are sonified as farther away. We indicate in the sketch that "distant" is achieved by adding extra reverb or echo to the most distant sounds. "<i>The newspaper</i>": this idea is very similar to the former; here the website "hovers" in front of the user. Links closest to the cursor are brought closest to ear-level. <i>"The bisector"</i> is a variation on the first sketch; here however, the user is submersed in the page. Links below the user cursor are mapped to a sound behind the user (it should be noted, however, that this is particularly difficult to achieve as a binaural auditory illusion).
+            <br><br>
+            <img class="image_map" src="sketch4.jpeg" alt="Three more variations.">
+            <b>Description.</b> <i>"The hemisphere"</i> makes an exaggerated view of the website by wrapping it around the user's head. This takes advantage of the fact that auditors have greater spatial acuity for sounds approaching from the side, rather than sounds coming head on. <i>"The vortx"</i> build on the idea of distorted mapping, by placing a particularly strong emphasis on the links near the cursor. Here they are brought closer to the user's head, while the backgrounded sounds remain distant (with relatively greater reverb/echo). <i>"The buried"</i> is an exaggerated combination of the straight-forward and newspaper concepts. Here the plane is tilted backwards, to take advantage of both distance- and elevation-related auditory spatial cues; the sketch gets its name from the fact that the closest sounds are spectrally altered to sound muffled (perhaps with a simple low-pass filter).
+            <br><br>
+            <img class="image_map" src="sketch5.jpeg" alt="Two more variations">
+            <b>Description.</b> With the following sketches we start to move away from the more literal mapping, and start to play with intermediate filtering and sorting steps. In <i>"the spotlight"</i>, only those links that are close to cursor are sonified. This setup encourages exploration on the part of the user, but will not give a full overview of the layout of the page. Perhaps the reduced complexity will make for a more pleasant browsing experience. The <i>"rearranger"</i> builds on the idea of focus and simplicity by sorting the page into thematically related clusters. Each cluster gets its own auditory icon; and by clicking on this icon, the user steps to the next level of detail, e.g., exposing the auditory icons of the constituent links.
+            <br><br>
+            <img class="image_map" src="sketch6.jpeg" alt="Last two variations">
+            <b>Description.</b> Here we continue to play with the idea of segmetation and simplification. In <i>"the architect,"</i> rather than intelligently cluster links, the website is subdivided into smaller "rooms". Each room is given its own sound-icon based on its location on the main page layout. By clicking to enter a room, the user is presented with a smaller, concise sonified layout as in one of the earlier designs. Finally in <i>"the heap"</i> we seek to explictly take advantage of the cocktail party effect. Here, all sound icons are played at once, at a moderate volume. As the user cursor passes over an object of interest, its auditory icon is made louder than the others, but the rest remain in the background. This is an extreme notion, and not one that would likely result in user comfort, as it would be very difficult to navigate around the webpage -- there is no spatial information whatsoever for the user.
             <hr>
             <br>
          </div>   
