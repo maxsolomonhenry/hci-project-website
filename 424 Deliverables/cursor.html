@@ -15,10 +15,37 @@
           background-color: black;
           position: absolute;
         }
+        .button1{
+          position: absolute;
+          top:700px;
+          left:1000px;
+          width:100px;
+          height:40px;
+        }
+        .button2{
+          position: absolute;
+          top:10px;
+          left:10px;
+          width:100px;
+          height:40px;
+        }
+        .content{
+          position: absolute;
+          top:300px;
+          left:400px;
+        }
+        .content1{
+          position: absolute;
+          top:350px;
+          left:400px;
+        }
       </style>
     </head>
     <body>
-        <p id="demo"></p>
+      <button type="button" class="button1">Object 1</button>
+      <button type="button" class="button2">Object 2</button>
+        <p id="demo" class="content"></p>
+        <p id="demo1" class="content1"></p>
     <script>
       (function() {
         "use strict";
@@ -44,8 +71,12 @@
               (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
               (doc && doc.clientTop  || body && body.clientTop  || 0 );
           }
+            var dis1=Math.sqrt((event.pageX-1000)*(event.pageX-1000)+(event.pageY-700)*(event.pageY-700));
+            var dis2=Math.sqrt((event.pageX-10)*(event.pageX-10)+(event.pageY-10)*(event.pageY-10));
             var coords = "X-coordinate: " + event.pageX + ", Y-coordinate: " + event.pageY;
+            var coords1 = "Distance to object 1: "+ dis1 + ", Distance to object 2: "+ dis2;
             document.getElementById("demo").innerHTML = coords;
+            document.getElementById("demo1").innerHTML = coords1;
         }
       })();
     </script>
