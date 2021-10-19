@@ -31,12 +31,32 @@
         }
         .content{
           position: absolute;
-          top:300px;
+          top:250px;
           left:400px;
         }
         .content1{
           position: absolute;
+          top:300px;
+          left:400px;
+        }
+        .content2{
+          position: absolute;
           top:350px;
+          left:400px;
+        }
+        .content3{
+          position: absolute;
+          top:400px;
+          left:400px;
+        }
+        .content4{
+          position: absolute;
+          top:450px;
+          left:400px;
+        }
+        .content5{
+          position: absolute;
+          top:500px;
           left:400px;
         }
       </style>
@@ -46,6 +66,10 @@
       <button type="button" class="button2">Object 2</button>
         <p id="demo" class="content"></p>
         <p id="demo1" class="content1"></p>
+        <p id="demo2" class="content2"></p>
+        <p id="demo3" class="content3"></p>
+        <p id="demo4" class="content4"></p>
+        <p id="demo5" class="content5"></p>
     <script>
       (function() {
         "use strict";
@@ -73,10 +97,27 @@
           }
             var dis1=Math.sqrt((event.pageX-1000)*(event.pageX-1000)+(event.pageY-700)*(event.pageY-700));
             var dis2=Math.sqrt((event.pageX-10)*(event.pageX-10)+(event.pageY-10)*(event.pageY-10));
+            var obj1x=event.pageX-1000;
+            var obj1y=event.pageY-700;
+            var obj2x=event.pageX-10;
+            var obj2y=event.pageY-10;
             var coords = "X-coordinate: " + event.pageX + ", Y-coordinate: " + event.pageY;
             var coords1 = "Distance to object 1: "+ dis1 + ", Distance to object 2: "+ dis2;
+            var coordobj1xy = "Cursor to object 1 X-coordinate: "+ obj1x+", Cursor to object 1 Y-coordinate: "+ obj1y;
+            var coordobj2xy = "Cursor to object 2 X-coordinate: "+ obj2x+", Cursor to object 2 Y-coordinate: "+ obj2y;
+            var ob1x = 1000;
+            var ob1y = 700;
+            var ob2x = 10;
+            var ob2y = 10;
+
+            var coordobj1= "Object 1's X-coordinate: "+ ob1x + ", Object 1's Y-coordinate:"+ ob1y;
+            var coordobj2= "Object 2's X-coordinate: "+ ob2x + ", Object 2's Y-coordinate:"+ ob2y;
             document.getElementById("demo").innerHTML = coords;
             document.getElementById("demo1").innerHTML = coords1;
+            document.getElementById("demo2").innerHTML = coordobj1;
+            document.getElementById("demo3").innerHTML = coordobj2;
+            document.getElementById("demo4").innerHTML = coordobj1xy;
+            document.getElementById("demo5").innerHTML = coordobj2xy;
         }
       })();
     </script>
