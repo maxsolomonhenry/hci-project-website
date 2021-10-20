@@ -1,5 +1,6 @@
 window.onload = () => {
 
+  // Instantiate audio context that is needed to define AudioObject class.
   let audioCtx = new AudioContext();
 
   class AudioObject {
@@ -9,16 +10,18 @@ window.onload = () => {
 
       return (async () => {
         // Build DSP elements of audio object.
+        this.gain = audioCtx.createGain();
         this.source = await this.#createSource(filePath);
         this.panner = audioCtx.createStereoPanner();
         this.reverb = await this.#createReverb();
         this.filter = this.#createHighShelf();
   
         // Connect the elements.
-        this.source.connect(this.filter);
-        this.filter.connect(this.reverb);
-        this.reverb.connect(this.panner);
-        this.panner.connect(audioCtx.destination);
+        this.source.connect(this.reverb);
+        this.reverb.connect(this.filter);
+        this.filter.connect(this.panner);
+        this.panner.connect(this.gain);
+        this.gain.connect(audioCtx.destination);
 
         return this;
       })()
@@ -32,6 +35,20 @@ window.onload = () => {
     stop() {
       this.source.stop();
     };
+
+    pan(val) {
+      this.panner.pan.setValueAtTime(val, audioCtx.currentTime);
+    }
+
+    setDepth(val) {
+      const MAX_FILT_GAIN_DB = 36;
+      
+      let tmpA = Math.min(val, 0) * MAX_FILT_GAIN_DB;
+      this.filter.gain.setValueAtTime(tmpA, audioCtx.currentTime);
+
+      let tmpB = 1 - Math.max(val, 0);
+      this.gain.gain.setValueAtTime(tmpB, audioCtx.currentTime);
+    }
   
     // "Private" methods.
     async #createSource(filePath) {
@@ -47,7 +64,7 @@ window.onload = () => {
     };
   
     async #createReverb() {
-      const VERB_IR_PATH = "./audio/St Nicolaes Church.wav";
+      const VERB_IR_PATH = "./audio/St Nicolaes Church_WET.wav";
   
       let convolver = audioCtx.createConvolver();
       let response = await fetch(VERB_IR_PATH);
@@ -72,6 +89,7 @@ window.onload = () => {
     }
   }
 
+  // Build simple website.
   const startAudioButton = document.createElement('button');
   startAudioButton.innerText = "Play";
   startAudioButton.addEventListener("click", () => { startAudio() });
@@ -82,10 +100,10 @@ window.onload = () => {
   stopAudioButton.addEventListener("click", () => { stopAudio() });
   document.body.appendChild(stopAudioButton);
 
-  let audioObjectList = [];
 
+  let audioObjectList = [];
   async function startAudio() {
-    // Audio objects have to be rebuilt after being stopped.
+    // Filepaths to playback sounds, hardcoded for now.
     const FILE_PATHS = ['./audio/demonstrative.mp3', './audio/solemn.mp3'];
 
     for (const path of FILE_PATHS) {
@@ -99,5 +117,25 @@ window.onload = () => {
     for (const audioObject of audioObjectList)
       audioObject.stop();
   }
+
+  document.onmousemove = (e) => {
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    let x = e.clientX;
+    let y = e.clientY;
+
+    // Calculate normalized position from center of window.
+    let normX = (x / width - 0.5) * 2;
+    let normY = (y / height - 0.5) * 2;
+
+    let magnitude = Math.sqrt(Math.pow(normX, 2) + Math.pow(normY, 2));
+
+    for (let audioObject of audioObjectList) {
+      audioObject.pan(-normX);
+      audioObject.setDepth(normY);
+    }
+
+  };
 
 }
