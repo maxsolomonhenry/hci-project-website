@@ -4,7 +4,7 @@ window.onload = () => {
 
   class AudioObject {
     constructor(filePath) {
-      // "Hack" to build asynchronous constructor. See second answer:
+      // "Hack" to build asynchronous constructor. See the second answer here:
       //    https://stackoverflow.com/questions/43431550/async-await-class-constructor
 
       return (async () => {
@@ -82,17 +82,22 @@ window.onload = () => {
   stopAudioButton.addEventListener("click", () => { stopAudio() });
   document.body.appendChild(stopAudioButton);
 
-  let myAudio;
+  let audioObjectList = [];
 
   async function startAudio() {
     // Audio objects have to be rebuilt after being stopped.
-    const FILE_PATH = './audio/demonstrative.mp3';
-    myAudio = await new AudioObject(FILE_PATH);
-    myAudio.play();
+    const FILE_PATHS = ['./audio/demonstrative.mp3', './audio/solemn.mp3'];
+
+    for (const path of FILE_PATHS) {
+      let tmp = await new AudioObject(path);
+      tmp.play();
+      audioObjectList.push(tmp); 
+    }
   }
 
   function stopAudio() {
-    myAudio.stop();
+    for (const audioObject of audioObjectList)
+      audioObject.stop();
   }
 
 }
