@@ -100,14 +100,10 @@ window.onload = () => {
   // stopAudioButton.addEventListener("click", () => { stopAudio() });
   // document.body.appendChild(stopAudioButton);
 
-  // document.addEventListener("DOMContentLoaded", function() {
-  //   startAudio();
-  // });
-
   if (pageLoaded) {
     startAudio();
   } else {
-    document.addEventListener('DOMContentLoaded', callback);
+    document.addEventListener('DOMContentLoaded', startAudio);
   }
 
   let audioObjectList = [];
