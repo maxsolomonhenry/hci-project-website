@@ -130,9 +130,41 @@ window.onload = () => {
     let x = e.clientX;
     let y = e.clientY;
 
+    var str_xy = "x: "+ x+", y: "+ y;
+    document.getElementById("demo1").innerHTML = str_xy;
+
+    var str_wh = "width: "+ width+", height: "+ height;
+    document.getElementById("demo2").innerHTML = str_wh;
+
     // Calculate normalized position from center of window.
-    let normX = (x / width - 0.5) * 2;
-    let normY = (y / height - 0.5) * 2;
+    // let normX = (x / width - 0.5) * 2;
+    // let normY = (y / height - 0.5) * 2;
+
+    // Calculate normalized position from the button position
+    var button_width = 200/2; // Button's width is 200, but we want the center of it, so 100
+    var button_height = 90/2; // Button's height is 90, but we want the center of it, so 45
+    var page_padding = 45;    // 45px is the page's bottom padding
+    var posX = 0;
+    var posY = 0;
+
+    if (button_top > 0) {
+      var posY = (button_top+button_height) / height;
+    }
+    if (button_right > 0) {
+      var posX = (width-button_right-button_width) / width;
+    }
+    if (button_bottom > 0) {
+      var posY = (height-button_bottom-button_height-page_padding) / height;
+    }
+    if (button_left > 0) {
+      var posX = (button_left+button_width) / width;
+    }
+
+    let normX = (x / width - posX) * 2;
+    let normY = (y / height - posY) * 2;
+
+    var str_normxy = "normX: "+ normX+", normY: "+ normY;
+    document.getElementById("demo3").innerHTML = str_normxy;
 
     let magnitude = Math.sqrt(Math.pow(normX, 2) + Math.pow(normY, 2));
 
