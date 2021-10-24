@@ -12,18 +12,25 @@ window.onload = () => {
 
       return (async () => {
         // Build DSP elements of audio object.
-        this.gain = audioCtx.createGain();
+        this.dryGain = audioCtx.createGain();
+        this.wetGain = audioCtx.createGain();
         this.source = await this.#createSource(filePath);
         this.panner = audioCtx.createStereoPanner();
         this.reverb = await this.#createReverb();
         this.filter = this.#createHighShelf();
 
-        // Connect the elements.
+        // Connect the elements. 
+        // Note the two paths: dry and wet (reverb).
+        this.source.connect(this.dryGain);
+
         this.source.connect(this.reverb);
-        this.reverb.connect(this.filter);
+        this.reverb.connect(this.wetGain);
+
+        this.dryGain.connect(this.filter);
+        this.wetGain.connect(this.filter);
+
         this.filter.connect(this.panner);
-        this.panner.connect(this.gain);
-        this.gain.connect(audioCtx.destination);
+        this.panner.connect(audioCtx.destination);
 
         // Accept a nickname.
         this.name = name;
@@ -51,7 +58,8 @@ window.onload = () => {
       let deltaX = this.x - mouseX;
       let deltaY = this.y - mouseY;
 
-      this.#pan(deltaX);
+      this.#setPan(deltaX);
+      this.#setDepth(deltaY);
     };
 
     // "Private" methods.
@@ -79,7 +87,7 @@ window.onload = () => {
     };
 
     #createHighShelf() {
-      const F0_HZ = 1200;
+      const F0_HZ = 1000;
       const DEFAULT_Q = 0.707;
 
       let filter = audioCtx.createBiquadFilter();
@@ -92,23 +100,37 @@ window.onload = () => {
       return filter;
     }
 
-    #pan(val) {
+    #setPan(val) {
       this.panner.pan.linearRampToValueAtTime(val, audioCtx.currentTime + 0.001);
       // console.log(`Panning ${this.name} to value ${val}.`);
     }
 
     #setDepth(val) {
-      const MAX_FILT_GAIN_DB = 36;
+      const FILT_LIMIT_DB = 36;
 
-      // For negative val, mute high frequencies to simulate sound coming from 
-      // behind user.
-      let tmpA = Math.min(val, 0) * MAX_FILT_GAIN_DB;
-      this.filter.gain.linearRampToValueAtTime(tmpA, audioCtx.currentTime + 0.001);
+      const DRY_GAIN_DB = -6;
+      const DRY_GAIN_REDUCE_DB = 36;
+      const WET_GAIN_REDUCE_DB = 16;
 
-      // For positive val, lower volume to simulate some coming from far in the 
-      // distance.
-      let tmpB = 1 - Math.max(val, 0);
-      this.gain.gain.linearRampToValueAtTime(tmpB, audioCtx.currentTime + 0.001);
+      let distanceBehindCursor = Math.max(val, 0);
+      let distanceInFrontOfCursor = Math.abs(Math.min(val, 0));
+
+      let tmp = 0;
+
+      // Mute high frequencies to simulate sound coming from behind user.
+      tmp =  - distanceBehindCursor * FILT_LIMIT_DB;
+      this.filter.gain.linearRampToValueAtTime(tmp, audioCtx.currentTime + 0.001);
+
+      // Simulate sound coming from distance.
+      tmp = DRY_GAIN_DB - distanceInFrontOfCursor * DRY_GAIN_REDUCE_DB;
+      tmp = Math.pow(10, tmp / 20);                           // dB -> linear.
+
+      this.dryGain.gain.linearRampToValueAtTime(tmp, audioCtx.currentTime + 0.001);
+
+      tmp = - distanceInFrontOfCursor * WET_GAIN_REDUCE_DB;
+      tmp = Math.pow(10, tmp / 20);
+
+      this.wetGain.gain.linearRampToValueAtTime(tmp, audioCtx.currentTime + 0.001);
     }
   }
 
@@ -156,7 +178,7 @@ window.onload = () => {
 
     // Normalize positions to window size.
     let normX = x / width;
-    let normY = y = height;
+    let normY = y / height;
 
     return [normX, normY];
   }
