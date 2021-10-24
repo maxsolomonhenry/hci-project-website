@@ -129,8 +129,8 @@ window.onload = () => {
       // Attenuate gain based on distance from cursor.
 
       const DRY_GAIN_DB = -6;
-      const DRY_GAIN_REDUCE_DB = 36;
-      const WET_GAIN_REDUCE_DB = 16;
+      const DRY_GAIN_REDUCE_DB = 30;
+      const WET_GAIN_REDUCE_DB = 24;
 
       let tmp = 0;
 
@@ -148,11 +148,104 @@ window.onload = () => {
     }
   }
 
-  startEngine();
+  // GUI.
+  let engineStatusGUI = document.createElement("span");
+  engineStatusGUI.innerHTML = "⏸ Pause engine";
+  engineStatusGUI.className = "animate-flicker";
+  engineStatusGUI.style = "cursor: pointer;";
+
+  engineStatusGUI.addEventListener("click", () => {
+
+    if (isEngineOn) {
+      stopEngine();
+    } else {
+      startEngine();
+    }
+
+    updateEngineStatusGui();
+  })
+
+  async function stopEngine() {
+    isEngineOn = false;
+
+    // Stop all playing sounds.
+    for (let audioObject of audioObjectList)
+      audioObject.stop();
+
+    // Disconnect other nodes.
+    tictocSource.stop();
+
+    const NUM_BUTTONS = 2;
+    BUTTON_CLASSES = ["button1", "button2"];
+    for (let i = 0; i < NUM_BUTTONS; ++i) {
+      let className = BUTTON_CLASSES[i];
+
+      // Find object.
+      let buttonElement = document.getElementsByClassName(className);
+      buttonElement = buttonElement[0];
+
+      // Remove event listeners.
+      buttonElement.removeEventListener("mouseenter", turnOnFocusMode);
+      buttonElement.removeEventListener("mouseleave", turnOffFocusMode);
+    }
+
+  };
+
+  document.body.appendChild(engineStatusGUI);
+
+  if (typeof isEngineOn == "undefined")
+    startEngine();
+
+  updateEngineStatusGui();
 
   let audioObjectList = [];
+  let dingSource;
+  let tictocSource;
+
+  function updateEngineStatusGui() {
+    if (isEngineOn) {
+      engineStatusGUI.innerHTML = "⏸ Pause engine";
+      engineStatusGUI.className = "animate-flicker";
+    } else {
+      engineStatusGUI.innerHTML = "▶️ Start engine";
+      engineStatusGUI.className = [];
+    }
+  }
+
+  async function turnOnFocusMode() {
+    if (!isEngineOn)
+      return;
+
+    globalFilter.frequency.linearRampToValueAtTime(500, audioCtx.currentTime + 0.1);
+    globalFilter.Q.linearRampToValueAtTime(10, audioCtx.currentTime + 0.1);
+
+    tictocSource = await (async () => {
+      const TIC_TOC_PATH = "../audio/tictoc.wav";
+      let response = await fetch(TIC_TOC_PATH);
+      let audioData = await response.arrayBuffer();
+      let audioBuffer = await audioCtx.decodeAudioData(audioData);
+      let source = audioCtx.createBufferSource();
+  
+      source.buffer = audioBuffer;
+      source.loop = true;
+  
+      return source;
+    })()
+
+    tictocSource.connect(audioCtx.destination);
+    tictocSource.start();
+  };
+
+  async function turnOffFocusMode() {
+    globalFilter.frequency.linearRampToValueAtTime(20000, audioCtx.currentTime + 0.1);
+    globalFilter.Q.linearRampToValueAtTime(0.707, audioCtx.currentTime + 0.1);
+    tictocSource.stop();
+  };
 
   async function startEngine() {
+
+    isEngineOn = true;
+
     // The following connects the button locations to sounds and objects.
     // Eventually this will be taken care of by an intermediate module.
 
@@ -160,7 +253,7 @@ window.onload = () => {
     const FILE_PATHS = ['../audio/solemn.mp3', '../audio/demonstrative.mp3'];
     const BUTTON_CLASSES = ['button1', 'button2'];
 
-    let dingSource = await (async () => {
+    dingSource = await (async () => {
       const TIC_TOC_PATH = "../audio/ding.wav";
       let response = await fetch(TIC_TOC_PATH);
       let audioData = await response.arrayBuffer();
@@ -175,40 +268,11 @@ window.onload = () => {
     dingSource.connect(audioCtx.destination);
     dingSource.start();
 
-    let tictocSource;
-    async function turnOnFocusMode() {
-      // globalFilter.frequency.linearRampToValueAtTime(300, audioCtx.currentTime);
-      // globalFilter.Q.linearRampToValueAtTime(10, audioCtx.currentTime);
-
-      tictocSource = await (async () => {
-        const TIC_TOC_PATH = "../audio/tictoc.wav";
-        let response = await fetch(TIC_TOC_PATH);
-        let audioData = await response.arrayBuffer();
-        let audioBuffer = await audioCtx.decodeAudioData(audioData);
-        let source = audioCtx.createBufferSource();
-    
-        source.buffer = audioBuffer;
-        source.loop = true;
-    
-        return source;
-      })()
-
-      tictocSource.connect(audioCtx.destination);
-      tictocSource.start();
-    };
-
-    function turnOffFocusMode() {
-      // globalFilter.frequency.linearRampToValueAtTime(20000, audioCtx.currentTime);
-      // globalFilter.Q.linearRampToValueAtTime(0.707, audioCtx.currentTime);
-      tictocSource.stop();
-    };
-
-
     for (let i = 0; i < NUM_BUTTONS; ++i) {
       let className = BUTTON_CLASSES[i];
       let filePath = FILE_PATHS[i];
 
-      // Find object 
+      // Find object.
       let buttonElement = document.getElementsByClassName(className);
       buttonElement = buttonElement[0];
 
