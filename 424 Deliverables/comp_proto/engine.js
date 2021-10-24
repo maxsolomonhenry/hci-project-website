@@ -5,7 +5,7 @@ window.onload = () => {
 
   class AudioObject {
 
-    constructor(filePath, x, y) {
+    constructor(name, filePath, x, y) {
 
       // "Hack" to build asynchronous constructor. See the second answer here:
       //    https://stackoverflow.com/questions/43431550/async-await-class-constructor
@@ -24,6 +24,9 @@ window.onload = () => {
         this.filter.connect(this.panner);
         this.panner.connect(this.gain);
         this.gain.connect(audioCtx.destination);
+
+        // Accept a nickname.
+        this.name = name;
 
         // Accept X/Y location.
         this.x = x;
@@ -44,8 +47,10 @@ window.onload = () => {
       this.source.stop();
     };
 
-    updateFromMousePosition(objectX, objectY) {
-      let deltaX = objectX - this.x;
+    updateFromMousePosition(mouseX, mouseY) {
+      let deltaX = this.x - mouseX;
+      let deltaY = this.y - mouseY;
+
       this.#pan(deltaX);
     };
 
@@ -87,17 +92,21 @@ window.onload = () => {
       return filter;
     }
 
-    // First order sound manipulation.
     #pan(val) {
       this.panner.pan.linearRampToValueAtTime(val, audioCtx.currentTime + 0.001);
+      // console.log(`Panning ${this.name} to value ${val}.`);
     }
 
     #setDepth(val) {
       const MAX_FILT_GAIN_DB = 36;
 
+      // For negative val, mute high frequencies to simulate sound coming from 
+      // behind user.
       let tmpA = Math.min(val, 0) * MAX_FILT_GAIN_DB;
       this.filter.gain.linearRampToValueAtTime(tmpA, audioCtx.currentTime + 0.001);
 
+      // For positive val, lower volume to simulate some coming from far in the 
+      // distance.
       let tmpB = 1 - Math.max(val, 0);
       this.gain.gain.linearRampToValueAtTime(tmpB, audioCtx.currentTime + 0.001);
     }
@@ -120,7 +129,7 @@ window.onload = () => {
 
       let [x, y] = getButtonXY(className);
 
-      let tmp = await new AudioObject(filePath, x, y);
+      let tmp = await new AudioObject(className, filePath, x, y);
 
       tmp.play();
       audioObjectList.push(tmp);
@@ -128,6 +137,7 @@ window.onload = () => {
     }
   }
 
+  // Return button normalized X, Y as identified by class name.
   function getButtonXY(className) {
 
     // Find object 
@@ -151,6 +161,7 @@ window.onload = () => {
     return [normX, normY];
   }
 
+  // Calculate normalized object positions and update audioObjects.
   document.onmousemove = (e) => {
 
     let width = window.innerWidth;
@@ -164,5 +175,16 @@ window.onload = () => {
     }
 
   };
+
+  // Reset object positions based on new window size.
+  window.addEventListener('resize', () => {
+    for (let audioObject of audioObjectList) {
+      let className = audioObject.name;
+      let [x, y] = getButtonXY(className);
+
+      audioObject.x = x;
+      audioObject.y = y;
+    }
+  })
 
 }
