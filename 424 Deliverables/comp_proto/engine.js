@@ -58,8 +58,12 @@ window.onload = () => {
       let deltaX = this.x - mouseX;
       let deltaY = this.y - mouseY;
 
+      let magnitude = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+      magnitude /= Math.sqrt(2);  // Normalize to [0, 1] range.
+
       this.#setPan(deltaX);
       this.#setDepth(deltaY);
+      this.#setDistance(magnitude);
     };
 
     // "Private" methods.
@@ -107,30 +111,33 @@ window.onload = () => {
 
     #setDepth(val) {
       const FILT_LIMIT_DB = 36;
+      let distanceBehindCursor = Math.max(val, 0);
+
+      // Mute high frequencies to simulate sound coming from behind user.
+      let tmp =  - distanceBehindCursor * FILT_LIMIT_DB;
+      this.filter.gain.linearRampToValueAtTime(tmp, audioCtx.currentTime + 0.001);
+    }
+
+    #setDistance(distanceFromCursor) {
+      // Attenuate gain based on distance from cursor.
 
       const DRY_GAIN_DB = -6;
       const DRY_GAIN_REDUCE_DB = 36;
       const WET_GAIN_REDUCE_DB = 16;
 
-      let distanceBehindCursor = Math.max(val, 0);
-      let distanceInFrontOfCursor = Math.abs(Math.min(val, 0));
-
       let tmp = 0;
 
-      // Mute high frequencies to simulate sound coming from behind user.
-      tmp =  - distanceBehindCursor * FILT_LIMIT_DB;
-      this.filter.gain.linearRampToValueAtTime(tmp, audioCtx.currentTime + 0.001);
-
-      // Simulate sound coming from distance.
-      tmp = DRY_GAIN_DB - distanceInFrontOfCursor * DRY_GAIN_REDUCE_DB;
-      tmp = Math.pow(10, tmp / 20);                           // dB -> linear.
+      // Calculate in dB then covert to linear.
+      tmp = DRY_GAIN_DB - distanceFromCursor * DRY_GAIN_REDUCE_DB;
+      tmp = Math.pow(10, tmp / 20);
 
       this.dryGain.gain.linearRampToValueAtTime(tmp, audioCtx.currentTime + 0.001);
 
-      tmp = - distanceInFrontOfCursor * WET_GAIN_REDUCE_DB;
+      tmp = - distanceFromCursor * WET_GAIN_REDUCE_DB;
       tmp = Math.pow(10, tmp / 20);
 
       this.wetGain.gain.linearRampToValueAtTime(tmp, audioCtx.currentTime + 0.001);
+
     }
   }
 
