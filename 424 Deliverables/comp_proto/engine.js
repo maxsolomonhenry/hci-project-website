@@ -149,14 +149,12 @@ window.onload = () => {
   }
 
   // GUI.
-  let engineStatusGUI = document.createElement("span");
-  engineStatusGUI.innerHTML = "⏸ Pause engine";
-  engineStatusGUI.className = "animate-flicker";
-  engineStatusGUI.style = "cursor: pointer;";
+  let engineStatusGui = document.createElement("span");
+  engineStatusGui.style = "cursor: pointer;";
 
-  engineStatusGUI.addEventListener("click", () => {
+  engineStatusGui.addEventListener("click", () => {
 
-    if (isEngineOn) {
+    if (localStorage.getItem("isEngineOn") === 'true') {
       stopEngine();
     } else {
       startEngine();
@@ -166,7 +164,7 @@ window.onload = () => {
   })
 
   async function stopEngine() {
-    isEngineOn = false;
+    localStorage.setItem("isEngineOn", false);
 
     // Stop all playing sounds.
     for (let audioObject of audioObjectList)
@@ -191,9 +189,9 @@ window.onload = () => {
 
   };
 
-  document.body.appendChild(engineStatusGUI);
+  document.body.appendChild(engineStatusGui);
 
-  if (typeof isEngineOn == "undefined")
+  if (typeof localStorage.getItem("isEngineOn") == "undefined" || localStorage.getItem("isEngineOn") === 'true')
     startEngine();
 
   updateEngineStatusGui();
@@ -203,17 +201,17 @@ window.onload = () => {
   let tictocSource;
 
   function updateEngineStatusGui() {
-    if (isEngineOn) {
-      engineStatusGUI.innerHTML = "⏸ Pause engine";
-      engineStatusGUI.className = "animate-flicker";
+    if (localStorage.getItem("isEngineOn") === 'true') {
+      engineStatusGui.innerHTML = "⏸ Pause engine";
+      engineStatusGui.className = "animate-flicker";
     } else {
-      engineStatusGUI.innerHTML = "▶️ Start engine";
-      engineStatusGUI.className = [];
+      engineStatusGui.innerHTML = "▶️ Start engine";
+      engineStatusGui.className = [];
     }
   }
 
   async function turnOnFocusMode() {
-    if (!isEngineOn)
+    if (localStorage.getItem("isEngineOn") === 'false')
       return;
 
     globalFilter.frequency.linearRampToValueAtTime(500, audioCtx.currentTime + 0.1);
@@ -244,7 +242,7 @@ window.onload = () => {
 
   async function startEngine() {
 
-    isEngineOn = true;
+    localStorage.setItem("isEngineOn", true);
 
     // The following connects the button locations to sounds and objects.
     // Eventually this will be taken care of by an intermediate module.
