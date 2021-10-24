@@ -39,7 +39,7 @@ window.onload = () => {
         this.x = x;
         this.y = y;
 
-        // TODO: Update audio parameters based on cursor and object location.
+        this.isPlaying = false;
 
         return this;
       })()
@@ -48,6 +48,7 @@ window.onload = () => {
     // Interface.
     play() {
       this.source.start();
+      this.isPlaying = true;
     };
 
     stop() {
@@ -160,7 +161,6 @@ window.onload = () => {
 
       let tmp = await new AudioObject(className, filePath, x, y);
 
-      tmp.play();
       audioObjectList.push(tmp);
 
     }
@@ -201,6 +201,9 @@ window.onload = () => {
 
     for (let audioObject of audioObjectList) {
       audioObject.updateFromMousePosition(normX, normY);
+
+      if (!audioObject.isPlaying)
+        audioObject.play();
     }
 
   };
