@@ -3,6 +3,12 @@ window.onload = () => {
   // Instantiate audio context that is needed to define AudioObject class.
   let audioCtx = new AudioContext();
 
+  // Set up global filter for "focus mode."
+  let globalFilter = audioCtx.createBiquadFilter();
+  globalFilter.type = "lowpass";
+  globalFilter.frequency.setValueAtTime(20000, audioCtx.currentTime);
+  globalFilter.connect(audioCtx.destination);
+
   class AudioObject {
 
     constructor(name, filePath, x, y) {
@@ -30,7 +36,7 @@ window.onload = () => {
         this.wetGain.connect(this.filter);
 
         this.filter.connect(this.panner);
-        this.panner.connect(audioCtx.destination);
+        this.panner.connect(globalFilter);
 
         // Accept a nickname.
         this.name = name;
@@ -145,19 +151,71 @@ window.onload = () => {
   startEngine();
 
   let audioObjectList = [];
+
   async function startEngine() {
     // The following connects the button locations to sounds and objects.
     // Eventually this will be taken care of by an intermediate module.
 
     const NUM_BUTTONS = 2;
-    const FILE_PATHS = ['../audio/demonstrative.mp3', '../audio/solemn.mp3'];
+    const FILE_PATHS = ['../audio/solemn.mp3', '../audio/demonstrative.mp3'];
     const BUTTON_CLASSES = ['button1', 'button2'];
+
+    let dingSource = await (async () => {
+      const TIC_TOC_PATH = "../audio/ding.wav";
+      let response = await fetch(TIC_TOC_PATH);
+      let audioData = await response.arrayBuffer();
+      let audioBuffer = await audioCtx.decodeAudioData(audioData);
+      let source = audioCtx.createBufferSource();
+  
+      source.buffer = audioBuffer;
+  
+      return source;
+    })()
+
+    dingSource.connect(audioCtx.destination);
+    dingSource.start();
+
+    let tictocSource;
+    async function turnOnFocusMode() {
+      // globalFilter.frequency.linearRampToValueAtTime(300, audioCtx.currentTime);
+      // globalFilter.Q.linearRampToValueAtTime(10, audioCtx.currentTime);
+
+      tictocSource = await (async () => {
+        const TIC_TOC_PATH = "../audio/tictoc.wav";
+        let response = await fetch(TIC_TOC_PATH);
+        let audioData = await response.arrayBuffer();
+        let audioBuffer = await audioCtx.decodeAudioData(audioData);
+        let source = audioCtx.createBufferSource();
+    
+        source.buffer = audioBuffer;
+        source.loop = true;
+    
+        return source;
+      })()
+
+      tictocSource.connect(audioCtx.destination);
+      tictocSource.start();
+    };
+
+    function turnOffFocusMode() {
+      // globalFilter.frequency.linearRampToValueAtTime(20000, audioCtx.currentTime);
+      // globalFilter.Q.linearRampToValueAtTime(0.707, audioCtx.currentTime);
+      tictocSource.stop();
+    };
+
 
     for (let i = 0; i < NUM_BUTTONS; ++i) {
       let className = BUTTON_CLASSES[i];
       let filePath = FILE_PATHS[i];
 
-      let [x, y] = getButtonXY(className);
+      // Find object 
+      let buttonElement = document.getElementsByClassName(className);
+      buttonElement = buttonElement[0];
+
+      buttonElement.addEventListener("mouseenter", turnOnFocusMode);
+      buttonElement.addEventListener("mouseleave", turnOffFocusMode);
+
+      let [x, y] = getButtonXY(buttonElement);
 
       let tmp = await new AudioObject(className, filePath, x, y);
 
@@ -167,13 +225,9 @@ window.onload = () => {
   }
 
   // Return button normalized X, Y as identified by class name.
-  function getButtonXY(className) {
+  function getButtonXY(buttonElement) {
 
-    // Find object 
-    let element = document.getElementsByClassName(className);
-    element = element[0];
-
-    let rect = element.getBoundingClientRect();
+    let rect = buttonElement.getBoundingClientRect();
 
     // Find center of object.
     let x = rect.x + (rect.width / 2);
@@ -211,8 +265,13 @@ window.onload = () => {
   // Reset object positions based on new window size.
   window.addEventListener('resize', () => {
     for (let audioObject of audioObjectList) {
+
       let className = audioObject.name;
-      let [x, y] = getButtonXY(className);
+
+      let buttonElement = document.getElementsByClassName(className);
+      buttonElement = buttonElement[0];
+      
+      let [x, y] = getButtonXY(buttonElement);
 
       audioObject.x = x;
       audioObject.y = y;
