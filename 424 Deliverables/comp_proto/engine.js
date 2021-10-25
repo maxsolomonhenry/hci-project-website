@@ -150,7 +150,7 @@ window.onload = () => {
 
   // GUI.
   let engineStatusGui = document.createElement("span");
-  engineStatusGui.style = "cursor: pointer;";
+  engineStatusGui.style = "cursor: pointer; position: absolute; bottom: 10px";
 
   engineStatusGui.addEventListener("click", () => {
 
