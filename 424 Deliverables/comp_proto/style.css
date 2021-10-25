@@ -59,6 +59,21 @@ font-weight: 300}
     vertical-align: middle;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+#button-tut {
+  width: 25%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 3%;
+  color: #fff;
+  background-color: #17a2b8;
+  font-weight: 400;
+  font-size: 1.25rem;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
 
 #header {text-align: center;
 background-color: transparent;
