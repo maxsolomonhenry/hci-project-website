@@ -87,7 +87,7 @@ window.onload = () => {
     };
 
     async #createReverb() {
-      const VERB_IR_PATH = "../audio/St Nicolaes Church_WET.wav";
+      const VERB_IR_PATH = "audio/St Nicolaes Church_WET.wav";
 
       let convolver = audioCtx.createConvolver();
       let response = await fetch(VERB_IR_PATH);
@@ -218,7 +218,7 @@ window.onload = () => {
     globalFilter.Q.linearRampToValueAtTime(10, audioCtx.currentTime + 0.1);
 
     tictocSource = await (async () => {
-      const TIC_TOC_PATH = "../audio/tictoc.wav";
+      const TIC_TOC_PATH = "audio/tictoc.wav";
       let response = await fetch(TIC_TOC_PATH);
       let audioData = await response.arrayBuffer();
       let audioBuffer = await audioCtx.decodeAudioData(audioData);
@@ -248,11 +248,11 @@ window.onload = () => {
     // Eventually this will be taken care of by an intermediate module.
 
     const NUM_BUTTONS = 2;
-    const FILE_PATHS = ['../audio/solemn.mp3', '../audio/demonstrative.mp3'];
+    const FILE_PATHS = ['audio/solemn.mp3', 'audio/demonstrative.mp3'];
     const BUTTON_CLASSES = ['button1', 'button2'];
 
     dingSource = await (async () => {
-      const TIC_TOC_PATH = "../audio/ding.wav";
+      const TIC_TOC_PATH = "audio/ding.wav";
       let response = await fetch(TIC_TOC_PATH);
       let audioData = await response.arrayBuffer();
       let audioBuffer = await audioCtx.decodeAudioData(audioData);
