@@ -9,6 +9,9 @@ window.onload = () => {
   globalFilter.frequency.setValueAtTime(20000, audioCtx.currentTime);
   globalFilter.connect(audioCtx.destination);
 
+  // Used to keep track if mouse has gone out of the screen
+  this.hasGoneOut = false;
+
   class AudioObject {
 
     constructor(name, filePath, x, y) {
@@ -59,7 +62,6 @@ window.onload = () => {
 
     stop() {
       this.source.stop();
-      this.isPlaying = false;
     };
 
     updateFromMousePosition(mouseX, mouseY) {
@@ -170,10 +172,6 @@ window.onload = () => {
     // Stop all playing sounds.
     for (let audioObject of audioObjectList)
       audioObject.stop();
-
-    // Disconnect other nodes.
-    dingSource.stop();
-    tictocSource.stop();
 
     const NUM_BUTTONS = 2;
     BUTTON_CLASSES = ["button1", "button2"];
@@ -340,5 +338,22 @@ window.onload = () => {
       audioObject.y = y;
     }
   })
+
+  // Stop sounds if mouse leaves the screen
+  document.addEventListener("mouseleave", (event) => {
+    if (event.clientY <= 0 || event.clientX <= 0 || (event.clientX >= window.innerWidth || event.clientY >= window.innerHeight)) {  
+      this.hasGoneOut = true;
+      stopEngine();
+      updateEngineStatusGui();
+    } 
+  });
+
+  // Play sounds if mouse comes back to screen
+  document.addEventListener("mouseenter", (event) => {
+    if (this.hasGoneOut == true && event.clientY > 0 && event.clientX > 0 && (event.clientX < window.innerWidth && event.clientY < window.innerHeight)) {  
+      startEngine();
+      updateEngineStatusGui();
+    } 
+  });
 
 }
