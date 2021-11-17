@@ -20,10 +20,10 @@ window.onload = () => {
         // Build DSP elements of audio object.
         this.dryGain = audioCtx.createGain();
         this.wetGain = audioCtx.createGain();
-        this.source = await this.#createSource(filePath);
+        this.source = await this.createSource(filePath);
         this.panner = audioCtx.createStereoPanner();
-        this.reverb = await this.#createReverb();
-        this.filter = this.#createHighShelf();
+        this.reverb = await this.createReverb();
+        this.filter = this.createHighShelf();
 
         // Connect the elements. 
         // Note the two paths: dry and wet (reverb).
@@ -59,6 +59,7 @@ window.onload = () => {
 
     stop() {
       this.source.stop();
+      this.isPlaying = false;
     };
 
     updateFromMousePosition(mouseX, mouseY) {
@@ -68,13 +69,13 @@ window.onload = () => {
       let magnitude = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
       magnitude /= Math.sqrt(2);  // Normalize to [0, 1] range.
 
-      this.#setPan(deltaX);
-      this.#setDepth(deltaY);
-      this.#setDistance(magnitude);
+      this.setPan(deltaX);
+      this.setDepth(deltaY);
+      this.setDistance(magnitude);
     };
 
-    // "Private" methods.
-    async #createSource(filePath) {
+    // Methods that used to be "Private"
+    async createSource(filePath) {
       let response = await fetch(filePath);
       let audioData = await response.arrayBuffer();
       let audioBuffer = await audioCtx.decodeAudioData(audioData);
@@ -86,7 +87,7 @@ window.onload = () => {
       return audioSource;
     };
 
-    async #createReverb() {
+    async createReverb() {
       const VERB_IR_PATH = "audio/St Nicolaes Church_WET.wav";
 
       let convolver = audioCtx.createConvolver();
@@ -97,7 +98,7 @@ window.onload = () => {
       return convolver;
     };
 
-    #createHighShelf() {
+    createHighShelf() {
       const F0_HZ = 1000;
       const DEFAULT_Q = 0.707;
 
@@ -111,12 +112,12 @@ window.onload = () => {
       return filter;
     }
 
-    #setPan(val) {
+    setPan(val) {
       this.panner.pan.linearRampToValueAtTime(val, audioCtx.currentTime + 0.001);
       // console.log(`Panning ${this.name} to value ${val}.`);
     }
 
-    #setDepth(val) {
+    setDepth(val) {
       const FILT_LIMIT_DB = 36;
       let distanceBehindCursor = Math.max(val, 0);
 
@@ -125,7 +126,7 @@ window.onload = () => {
       this.filter.gain.linearRampToValueAtTime(tmp, audioCtx.currentTime + 0.001);
     }
 
-    #setDistance(distanceFromCursor) {
+    setDistance(distanceFromCursor) {
       // Attenuate gain based on distance from cursor.
 
       const DRY_GAIN_DB = -6;
@@ -171,6 +172,7 @@ window.onload = () => {
       audioObject.stop();
 
     // Disconnect other nodes.
+    dingSource.stop();
     tictocSource.stop();
 
     const NUM_BUTTONS = 2;
@@ -211,33 +213,15 @@ window.onload = () => {
   }
 
   async function turnOnFocusMode() {
-    if (localStorage.getItem("isEngineOn") === 'false')
-      return;
-
     globalFilter.frequency.linearRampToValueAtTime(500, audioCtx.currentTime + 0.1);
     globalFilter.Q.linearRampToValueAtTime(10, audioCtx.currentTime + 0.1);
-
-    tictocSource = await (async () => {
-      const TIC_TOC_PATH = "audio/tictoc.wav";
-      let response = await fetch(TIC_TOC_PATH);
-      let audioData = await response.arrayBuffer();
-      let audioBuffer = await audioCtx.decodeAudioData(audioData);
-      let source = audioCtx.createBufferSource();
-  
-      source.buffer = audioBuffer;
-      source.loop = true;
-  
-      return source;
-    })()
-
-    tictocSource.connect(audioCtx.destination);
-    tictocSource.start();
+    tictocSource.playbackRate.value = 5.0 // Workaround to start the "tic toc" sound --> Set playbackRate to 5.0 * 44.1 kHz
   };
 
   async function turnOffFocusMode() {
     globalFilter.frequency.linearRampToValueAtTime(20000, audioCtx.currentTime + 0.1);
     globalFilter.Q.linearRampToValueAtTime(0.707, audioCtx.currentTime + 0.1);
-    tictocSource.stop();
+    tictocSource.playbackRate.value = 0.0 // Workaround to pause the "tic toc" sound --> Set playbackRate to 0.0 Hz
   };
 
   async function startEngine() {
@@ -265,6 +249,23 @@ window.onload = () => {
 
     dingSource.connect(audioCtx.destination);
     dingSource.start();
+
+    tictocSource = await (async () => {
+      const TIC_TOC_PATH = "audio/tictoc.wav";
+      let response = await fetch(TIC_TOC_PATH);
+      let audioData = await response.arrayBuffer();
+      let audioBuffer = await audioCtx.decodeAudioData(audioData);
+      let source = audioCtx.createBufferSource();
+
+      source.buffer = audioBuffer;
+      source.loop = true;
+
+      return source;
+    })()
+
+    tictocSource.playbackRate.value = 0.0 // Workaround to pause the "tic toc" sound --> Set playbackRate to 0 Hz
+    tictocSource.connect(audioCtx.destination);
+    tictocSource.start()
 
     for (let i = 0; i < NUM_BUTTONS; ++i) {
       let className = BUTTON_CLASSES[i];
