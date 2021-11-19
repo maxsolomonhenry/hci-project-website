@@ -3,6 +3,9 @@ window.onload = () => {
   // Instantiate audio context that is needed to define AudioObject class.
   let audioCtx = new AudioContext();
 
+  // How often the engine updates.
+  const UPDATE_PERIOD_MS = 50;
+
   // Set up global filter for "focus mode."
   let globalFilter = audioCtx.createBiquadFilter();
   globalFilter.type = "lowpass";
@@ -65,9 +68,17 @@ window.onload = () => {
       this.source.stop();
     };
 
-    updateFromMousePosition(mouseX, mouseY) {
-      let deltaX = this.x - mouseX;
-      let deltaY = this.y - mouseY;
+    updateFromMousePosition(mouseX, mouseY, theta) {
+
+      // Apply rotation.
+      let tmpDeltaX = this.x - mouseX;
+      let tmpDeltaY = this.y - mouseY;
+
+      let rotateX = Math.cos(theta) * tmpDeltaX - Math.sin(theta) * tmpDeltaY + mouseX;
+      let rotateY = Math.sin(theta) * tmpDeltaX + Math.cos(theta) * tmpDeltaY + mouseY;
+
+      let deltaX = rotateX - mouseX;
+      let deltaY = rotateY - mouseY;
 
       let magnitude = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
       magnitude /= Math.sqrt(2);  // Normalize to [0, 1] range.
@@ -240,7 +251,8 @@ window.onload = () => {
     // Eventually this will be taken care of by an intermediate module.
 
     const NUM_BUTTONS = 2;
-    const FILE_PATHS = ['audio/solemn.mp3', 'audio/demonstrative.mp3'];
+    //const FILE_PATHS = ['audio/solemn.mp3', 'audio/demonstrative.mp3'];
+    const FILE_PATHS = ['audio/footsteps.wav', 'audio/heels.wav'];
     const BUTTON_CLASSES = ['button1', 'button2'];
 
     dingSource = await (async () => {
@@ -316,23 +328,54 @@ window.onload = () => {
     return [normX, normY];
   }
 
-  // Calculate normalized object positions and update audioObjects.
+  // Update mouse X and Y position on mouse move.
+  let normX = 0;
+  let normY = 0;
   document.onmousemove = (e) => {
 
     let width = window.innerWidth;
     let height = window.innerHeight;
 
-    let normX = e.clientX / width;
-    let normY = e.clientY / height;
+    normX = e.clientX / width;
+    normY = e.clientY / height;
 
+  };
+
+  // Variables for smoothed mouse history.
+  let memX = 0;
+  let memY = 0;
+
+  // Update engine based on mouse.
+  setInterval( () => {
+
+    // How smoothly does the head turn back to fwd position.
+    const SMOOTH_COEF = 0.9;
+
+    // Calculate smoothed, delayed versions of x and y mouse positions.
+    memX = SMOOTH_COEF * memX + (1 - SMOOTH_COEF) * normX;
+
+    // Calculate angle between current mouse and delayed mouse.
+    let deltaX = normX - memX;
+
+    // Y is a fixed position "in front of the head" of the cursor.
+    //
+    // Smaller values of Y make the head "jerk" more sudden.
+    let deltaY = 1;
+
+    const EPS = 1e-5;
+    let theta = Math.atan(deltaX/ deltaY);
+
+    // Debugging.
+    console.log(`theta: ${theta.toFixed(4)}`);
+  
     for (let audioObject of audioObjectList) {
-      audioObject.updateFromMousePosition(normX, normY);
+      audioObject.updateFromMousePosition(normX, normY, theta);
 
       if (!audioObject.isPlaying)
         audioObject.play();
     }
 
-  };
+  }, UPDATE_PERIOD_MS);
 
   // Reset object positions based on new window size.
   window.addEventListener('resize', () => {
