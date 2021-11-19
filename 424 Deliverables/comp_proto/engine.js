@@ -247,7 +247,8 @@ window.onload = () => {
     // Eventually this will be taken care of by an intermediate module.
 
     const NUM_BUTTONS = 2;
-    const FILE_PATHS = ['audio/solemn.mp3', 'audio/demonstrative.mp3'];
+    //const FILE_PATHS = ['audio/solemn.mp3', 'audio/demonstrative.mp3'];
+    const FILE_PATHS = ['audio/footsteps.wav', 'audio/heels.wav'];
     const BUTTON_CLASSES = ['button1', 'button2'];
 
     dingSource = await (async () => {
