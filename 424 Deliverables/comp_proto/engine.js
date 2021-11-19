@@ -334,14 +334,22 @@ window.onload = () => {
 
   // Update engine based on mouse.
   setInterval( () => {
-    const SMOOTH_COEF = 0.9;
+    const SMOOTH_COEF = 0.2;
 
     // Calculate smoothed, delayed versions of x and y mouse positions.
     memX = SMOOTH_COEF * memX + (1 - SMOOTH_COEF) * normX;
-    memY = SMOOTH_COEF * memY + (1 - SMOOTH_COEF) * normY;
 
     // Calculate angle between current mouse and delayed mouse.
+    let deltaX = normX - memX;
 
+    // Y is a fixed position "in front of the head" of the cursor.
+    let deltaY = 0.1;
+
+    const EPS = 1e-5;
+    let theta = Math.atan(deltaX/ deltaY);
+
+    // Debugging.
+    console.log(`theta: ${theta.toFixed(4)}`);
   
     for (let audioObject of audioObjectList) {
       audioObject.updateFromMousePosition(normX, normY);
@@ -349,8 +357,6 @@ window.onload = () => {
       if (!audioObject.isPlaying)
         audioObject.play();
     }
-
-    console.log(`X: ${normX}, memX: ${memX}`);
 
   }, UPDATE_PERIOD_MS);
 
