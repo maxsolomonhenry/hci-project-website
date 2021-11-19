@@ -3,6 +3,9 @@ window.onload = () => {
   // Instantiate audio context that is needed to define AudioObject class.
   let audioCtx = new AudioContext();
 
+  // How often the engine updates.
+  const UPDATE_PERIOD_MS = 50;
+
   // Set up global filter for "focus mode."
   let globalFilter = audioCtx.createBiquadFilter();
   globalFilter.type = "lowpass";
@@ -312,23 +315,28 @@ window.onload = () => {
     return [normX, normY];
   }
 
-  // Calculate normalized object positions and update audioObjects.
+  // Update mouse X and Y position on mouse move.
+  let normX = 0;
+  let normY = 0;
   document.onmousemove = (e) => {
 
     let width = window.innerWidth;
     let height = window.innerHeight;
 
-    let normX = e.clientX / width;
-    let normY = e.clientY / height;
+    normX = e.clientX / width;
+    normY = e.clientY / height;
 
+  };
+
+  // Update engine based on mouse.
+  setInterval( () => { 
     for (let audioObject of audioObjectList) {
       audioObject.updateFromMousePosition(normX, normY);
 
       if (!audioObject.isPlaying)
         audioObject.play();
     }
-
-  };
+  }, UPDATE_PERIOD_MS);
 
   // Reset object positions based on new window size.
   window.addEventListener('resize', () => {
