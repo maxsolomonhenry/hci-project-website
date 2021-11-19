@@ -67,9 +67,17 @@ window.onload = () => {
       this.source.stop();
     };
 
-    updateFromMousePosition(mouseX, mouseY) {
-      let deltaX = this.x - mouseX;
-      let deltaY = this.y - mouseY;
+    updateFromMousePosition(mouseX, mouseY, theta) {
+
+      // Apply rotation.
+      let tmpDeltaX = this.x - mouseX;
+      let tmpDeltaY = this.y - mouseY;
+
+      let rotateX = Math.cos(theta) * tmpDeltaX - Math.sin(theta) * tmpDeltaY + mouseX;
+      let rotateY = Math.sin(theta) * tmpDeltaX + Math.cos(theta) * tmpDeltaY + mouseY;
+
+      let deltaX = rotateX - mouseX;
+      let deltaY = rotateY - mouseY;
 
       let magnitude = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
       magnitude /= Math.sqrt(2);  // Normalize to [0, 1] range.
@@ -334,7 +342,9 @@ window.onload = () => {
 
   // Update engine based on mouse.
   setInterval( () => {
-    const SMOOTH_COEF = 0.2;
+
+    // How smoothly does the head turn back to fwd position.
+    const SMOOTH_COEF = 0.9;
 
     // Calculate smoothed, delayed versions of x and y mouse positions.
     memX = SMOOTH_COEF * memX + (1 - SMOOTH_COEF) * normX;
@@ -343,7 +353,9 @@ window.onload = () => {
     let deltaX = normX - memX;
 
     // Y is a fixed position "in front of the head" of the cursor.
-    let deltaY = 0.1;
+    //
+    // Smaller values of Y make the head "jerk" more sudden.
+    let deltaY = 1;
 
     const EPS = 1e-5;
     let theta = Math.atan(deltaX/ deltaY);
@@ -352,7 +364,7 @@ window.onload = () => {
     console.log(`theta: ${theta.toFixed(4)}`);
   
     for (let audioObject of audioObjectList) {
-      audioObject.updateFromMousePosition(normX, normY);
+      audioObject.updateFromMousePosition(normX, normY, theta);
 
       if (!audioObject.isPlaying)
         audioObject.play();
