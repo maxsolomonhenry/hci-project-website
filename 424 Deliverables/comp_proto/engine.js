@@ -11,6 +11,7 @@ window.onload = () => {
 
   // Variable to track if cursor is outside of the browser window.
   this.hasGoneOut = false;
+  this.userPaused = true;
 
   class AudioObject {
 
@@ -159,8 +160,10 @@ window.onload = () => {
 
     if (localStorage.getItem("isEngineOn") === 'true') {
       stopEngine();
+      this.userPaused = true;
     } else {
       startEngine();
+      this.userPaused = false;
     }
 
     updateEngineStatusGui();
@@ -185,7 +188,8 @@ window.onload = () => {
       // Remove event listeners.
       buttonElement.removeEventListener("mouseenter", turnOnFocusMode);
       buttonElement.removeEventListener("mouseleave", turnOffFocusMode);
-    }
+      
+}
 
   };
 
@@ -348,18 +352,23 @@ window.onload = () => {
 
   // Stop sounds if mouse leaves the screen
   document.addEventListener("mouseleave", (event) => {
-    if (event.clientY <= 0 || event.clientX <= 0 || (event.clientX >= window.innerWidth || event.clientY >= window.innerHeight)) {  
+    if (this.hasGoneOut == false && event.clientY <= 0 || event.clientX <= 0 || (event.clientX >= window.innerWidth || event.clientY >= window.innerHeight)) {  
       this.hasGoneOut = true;
-      stopEngine();
-      updateEngineStatusGui();
+      if (this.userPaused == false) {
+        stopEngine();
+        updateEngineStatusGui();
+      }
     } 
   });
 
   // Play sounds if mouse comes back to screen
   document.addEventListener("mouseenter", (event) => {
-    if (this.hasGoneOut == true && event.clientY > 0 && event.clientX > 0 && (event.clientX < window.innerWidth && event.clientY < window.innerHeight)) {  
-      startEngine();
-      updateEngineStatusGui();
+    if (this.hasGoneOut == true && event.clientY > 0 && event.clientX > 0 && (event.clientX < window.innerWidth && event.clientY < window.innerHeight)) {
+      this.hasGoneOut = false;
+      if (this.userPaused == false) {
+        startEngine();
+        updateEngineStatusGui();
+      }
     } 
   });
 
