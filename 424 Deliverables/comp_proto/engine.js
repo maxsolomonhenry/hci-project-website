@@ -9,7 +9,7 @@ window.onload = () => {
   globalFilter.frequency.setValueAtTime(20000, audioCtx.currentTime);
   globalFilter.connect(audioCtx.destination);
 
-  // Used to keep track if mouse has gone out of the screen
+  // Variable to track if cursor is outside of the browser window.
   this.hasGoneOut = false;
 
   class AudioObject {
@@ -213,13 +213,19 @@ window.onload = () => {
   async function turnOnFocusMode() {
     globalFilter.frequency.linearRampToValueAtTime(500, audioCtx.currentTime + 0.1);
     globalFilter.Q.linearRampToValueAtTime(10, audioCtx.currentTime + 0.1);
-    tictocSource.playbackRate.value = 5.0 // Workaround to start the "tic toc" sound --> Set playbackRate to 5.0 * 44.1 kHz
+
+    // Change playback rate to non-zero value.
+    // 
+    // This is rather than "start," which can spawn spurious tic-toc playbacks.
+    tictocSource.playbackRate.value = 5.0; 
   };
 
   async function turnOffFocusMode() {
     globalFilter.frequency.linearRampToValueAtTime(20000, audioCtx.currentTime + 0.1);
     globalFilter.Q.linearRampToValueAtTime(0.707, audioCtx.currentTime + 0.1);
-    tictocSource.playbackRate.value = 0.0 // Workaround to pause the "tic toc" sound --> Set playbackRate to 0.0 Hz
+
+    // "Stop" by setting playback rate to 0.
+    tictocSource.playbackRate.value = 0.0;
   };
 
   async function startEngine() {
@@ -261,7 +267,8 @@ window.onload = () => {
       return source;
     })()
 
-    tictocSource.playbackRate.value = 0.0 // Workaround to pause the "tic toc" sound --> Set playbackRate to 0 Hz
+    // Set initial rate to 0 (no playback).
+    tictocSource.playbackRate.value = 0.0;
     tictocSource.connect(audioCtx.destination);
     tictocSource.start()
 
