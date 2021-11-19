@@ -328,14 +328,30 @@ window.onload = () => {
 
   };
 
+  // Variables for smoothed mouse history.
+  let memX = 0;
+  let memY = 0;
+
   // Update engine based on mouse.
-  setInterval( () => { 
+  setInterval( () => {
+    const SMOOTH_COEF = 0.9;
+
+    // Calculate smoothed, delayed versions of x and y mouse positions.
+    memX = SMOOTH_COEF * memX + (1 - SMOOTH_COEF) * normX;
+    memY = SMOOTH_COEF * memY + (1 - SMOOTH_COEF) * normY;
+
+    // Calculate angle between current mouse and delayed mouse.
+
+  
     for (let audioObject of audioObjectList) {
       audioObject.updateFromMousePosition(normX, normY);
 
       if (!audioObject.isPlaying)
         audioObject.play();
     }
+
+    console.log(`X: ${normX}, memX: ${memX}`);
+
   }, UPDATE_PERIOD_MS);
 
   // Reset object positions based on new window size.
