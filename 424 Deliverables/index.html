@@ -16,10 +16,38 @@ font-size:25px
 .headshot{
 width: 200px;
 }
+/* The navigation bar */
+.container-fluid {
+  overflow: auto;
+  background-color:  #263238;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+
+/* Links inside the navbar */
+.container-fluid a {
+  float:left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  width: 400px;
+}
+
+/* Change background on mouse-over */
+.container-fluid a:hover {
+  background: #ddd;
+  color: black;
+}
+
+
 </style>
 </head>
 <body>
 <!-- partial:index.partial.html -->
+
 <div id="viewport">
   <!-- Sidebar -->
   <div id="sidebar">
@@ -69,7 +97,9 @@ width: 200px;
   <div id="content">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-        
+        <a href="Beta_System.html">Prev: Beta System</a>
+          <a href="index.html">Home</a>
+          <a href="Observation.html">Next: Observation</a>
       </div>
     </nav>
     
