@@ -1,75 +1,118 @@
 <!DOCTYPE html>
-<html lang="en" >
-    <head>
-        <meta charset="UTF-8">
-        <title>ECSE424 Group 13 Notebook Low-fi prototype and test plan</title>
-        <link rel='stylesheet' href='bootstrap.min.css'>
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
-        <link rel="stylesheet" href="style1.css">
-        <style>
-            h1 {text-align: center;}
-            h2 {text-align: center;}
-            h3,
-            .h3 {
-                text-align: center;
-                font-size: 150%;
-            }
-            h4,
-            .h4{
-                text-align: center;
-                font-size: 120%;
-            }
-            .center{
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                width:50%;
-            }
-	        .container{
-		        text-align: left;
-		        font-size: 18px;
-		    }
-            .image_map{
-                width: 100%;
-                height:auto;
-            }
-            .citation{
-                font-size: 10px;
-            }
-            .cite{
-                font-style: italic;
-            }
-        </style>
-    </head>
+<html lang="en">
 
-    <body>
+<head>
+  <meta charset="UTF-8">
+  <title>ECSE424 Group 13 Notebook Low-fi prototype and test plan</title>
+  <link rel='stylesheet' href='bootstrap.min.css'>
+  <link rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
+  <link rel="stylesheet" href="style1.css">
+  <style>
+    h1 {
+      text-align: center;
+    }
 
-    <div id="viewport">
+    h2 {
+      text-align: center;
+    }
+
+    h3,
+    .h3 {
+      text-align: center;
+      font-size: 150%;
+    }
+
+    h4,
+    .h4 {
+      text-align: center;
+      font-size: 120%;
+    }
+
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    }
+
+    .container {
+      text-align: left;
+      font-size: 18px;
+    }
+
+    .image_map {
+      width: 100%;
+      height: auto;
+    }
+
+    .citation {
+      font-size: 10px;
+    }
+
+    .cite {
+      font-style: italic;
+    }
+
+    /* The navigation bar */
+    .container-fluid {
+      overflow: auto;
+      background-color: #263238;
+      position: fixed;
+      /* Set the navbar to fixed position */
+      top: 0;
+      /* Position the navbar at the top of the page */
+      width: 100%;
+      /* Full width */
+    }
+
+    /* Links inside the navbar */
+    .container-fluid a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 12px;
+      text-decoration: none;
+      width: 400px;
+    }
+
+    /* Change background on mouse-over */
+    .container-fluid a:hover {
+      background: #ddd;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="viewport">
     <!-- Sidebar -->
     <div id="sidebar">
-        <header>
+      <header>
         <a href="#">Deliverables</a>
-        </header>
-    <ul class="nav">
+      </header>
+      <ul class="nav">
         <li>
-            <a href="index.html">
+          <a href="index.html">
             Home
-            </a>
+          </a>
         </li>
         <li>
-            <a href="Observation.html">
+          <a href="Observation.html">
             Observations and Proposal
-            </a>
+          </a>
         </li>
         <li>
-            <a href="l-fi-prototype.html" class="active">
+          <a href="l-fi-prototype.html" class="active">
             Low-Fidelity Prototype and Test Plan
-            </a>
+          </a>
         </li>
         <li>
-            <a href="Computer-Prototype.html">
+          <a href="Computer-Prototype.html">
             Computer Prototype
-            </a>
+          </a>
         </li>
         <li>
           <a href="Formative Feedback.html">
@@ -77,287 +120,483 @@
           </a>
         </li>
         <li>
-            <a href="Alpha_System.html">
+          <a href="Alpha_System.html">
             Alpha System
-            </a>
+          </a>
         </li>
         <li>
-            <a href="Beta_System.html">
+          <a href="Beta_System.html">
             Beta System
-            </a>
+          </a>
         </li>
-    </ul>
-  </div>
-  <!-- Content -->
-  <div id="content">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        
+      </ul>
+    </div>
+    <!-- Content -->
+    <div id="content">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <a href="Observation.html">Prev: Observation</a>
+          <a href="index.html">Home</a>
+          <a href="Computer-Prototype.html">Next: Computer Prototype</a>
+        </div>
+      </nav>
+      <h1>Welcome to ECSE424 HCI Group 13 Notebook</h1>
+      <h2>Low-Fidelity Prototype and Test Plan</h2>
+      <br>
+      <hr>
+      <br>
+      <div class="container">
+        <h3>I. Design concepts</h3>
+        <p>In order to center conceptually around the design process, we step through the <i>10 plus 10</i> design
+          procedure. This seven-step process begins with a formal statement of the design challenge.</p>
+        <h4>The design challenge</h4>
+        <p>There are many existing solutions for internet navigation for those who cannot see the screen (either because
+          of limited vision, or those who situationally do not have access to a screen); most involve discarding the
+          spatial dimension of a website. For example, screen-readers narrate a website content from top to bottom; this
+          reduces the 2-dimensional layout of the website into a 1-dimensional stream, which users can only travserse in
+          one of two directions. For example, passing from the top to the middle of the page necessitates moving through
+          all of the content in between. Eye-tracking data suggest that there are numerous patterns of visual search
+          across a website, including an "F-shaped" pattern in which users scan alternately vertically and horizontally
+          [1].
+          <br><br>
+          In this design challenge, we seek to bring the additional degree of freedom of 2-dimensional website
+          navigation to those that cannot see a screen. In particular, <i>how can we convey the spatial layout of a
+            website using audio?</i>
+        </p>
+
+        <div class="citation">[1] Wang, Qiuzhen, Sa Yang, Manlu Liu, Zike Cao, and Qingguo Ma. 2014. "An eye-tracking
+          study of website complexity from cognitive load perspective." <cite>Decision Support Systems</cite> 62: 1-10.
+        </div>
+
+        <br>
+        <br>
+        <h4>The design concept</h4>
+        An initial round of sketching leads the team to the following basic design, which forms the basis for ten futher
+        variations. A detailed description follows below.
+        <br>
+        <img class="image_map" src="sketch1.jpeg" alt="Premise of auditory mapping device">
+        <br>
+
+        <b>Description.</b> These sketches are meant to be self-explanatory; however, for the curious reader we provide
+        detailed information in this paragraph. The user is wearing head phones and has access to a standard mouse or
+        trackpad device. In the top figure, the dotted box represents an audio field, i.e., audio that has been mapped
+        to the left and right speakers of the heaphones to create some illusion of a three-dimensional space. In the
+        second figure, three schematic links, labeled "1" "2" and "3," are shown near a cursor. These links are assigned
+        auditory "icons," indicated by the speakers in the third figure. Based on their spatial relationship to the
+        cursor, these auditory icons are mapped to different locations in the audio field. As an example, we show a
+        hemi-cylindrical field.
+        <br><br>
+        This design shows considerable promise, but the format permits many possible variations; specifically, there are
+        many ways to map the locations of the links to an audio field. We explore these possibilities in the next step
+        of the <i>10 plus 10</i> methodology, by sketching ten variations on this theme.
+        <br><br>
+        <img class="image_map" src="sketch2.jpeg" alt="A second overview">
+        <b>Description.</b> A secondary early sketch of links, layouts and auditory icons. We introduce the phrase
+        "cocktail party" to refer to the "cocktail party problem," a phenomenon in auditory psychology refering a human
+        auditor's natural ability to pick out and focus on one voice from among many intermingled in a crowd. To what
+        extent can the team take advantage of this phenomenon, and turn a busy website layout into an auditory cocktail
+        party?
+        <br><br>
+        <img class="image_map" src="sketch3.jpeg" alt="Three initial variations">
+        <b>Description.</b> Three initial variations. We determine early on in the sketching process that it is useful
+        to give each sketch a nickname, when discussing the relative merits and problems of each. The first sketch is
+        "<i>the straight-forward</i>": here, the website is mapped to a flat plane that recedes away from the user.
+        Links higher up the page are sonified as farther away. We indicate in the sketch that "distant" is achieved by
+        adding extra reverb or echo to the most distant sounds. "<i>The newspaper</i>": this idea is very similar to the
+        former; here the website "hovers" in front of the user. Links closest to the cursor are brought closest to
+        ear-level. <i>"The bisector"</i> is a variation on the first sketch; here however, the user is immersed in the
+        page. Links below the user cursor are mapped to a sound behind the user (it should be noted, however, that this
+        is particularly difficult to achieve as a binaural auditory illusion).
+        <br><br>
+        <img class="image_map" src="sketch4.jpeg" alt="Three more variations.">
+        <b>Description.</b> <i>"The hemisphere"</i> makes an exaggerated view of the website by wrapping it around the
+        user's head. This takes advantage of the fact that auditors have greater spatial acuity for sounds approaching
+        from the side, rather than sounds coming head on. <i>"The vortx"</i> build on the idea of distorted mapping, by
+        placing a particularly strong emphasis on the links near the cursor. Here they are brought closer to the user's
+        head, while the backgrounded sounds remain distant (with relatively greater reverb/echo). <i>"The buried"</i> is
+        an exaggerated combination of the straight-forward and newspaper concepts. Here the plane is tilted backwards,
+        to take advantage of both distance- and elevation-related auditory spatial cues; the sketch gets its name from
+        the fact that the closest sounds are spectrally altered to sound muffled (perhaps with a simple low-pass
+        filter).
+        <br><br>
+        <img class="image_map" src="sketch5.jpeg" alt="Two more variations">
+        <b>Description.</b> With the following sketches we start to move away from the more literal mapping, and start
+        to play with intermediate filtering and sorting steps. In <i>"the spotlight"</i>, only those links that are
+        close to cursor are sonified. This setup encourages exploration on the part of the user, but will not give a
+        full overview of the layout of the page. Perhaps the reduced complexity will make for a more pleasant browsing
+        experience. The <i>"rearranger"</i> builds on the idea of focus and simplicity by sorting the page into
+        thematically related clusters. Each cluster gets its own auditory icon; and by clicking on this icon, the user
+        steps to the next level of detail, e.g., exposing the auditory icons of the constituent links.
+        <br><br>
+        <img class="image_map" src="sketch6.jpeg" alt="Last two variations">
+        <b>Description.</b> Here we continue to play with the idea of segmetation and simplification. In <i>"the
+          architect,"</i> rather than intelligently cluster links, the website is subdivided into smaller "rooms". Each
+        room is given its own sound-icon based on its location on the main page layout. By clicking to enter a room, the
+        user is presented with a smaller, concise sonified layout as in one of the earlier designs. Finally in <i>"the
+          heap"</i> we seek to explictly take advantage of the cocktail party effect. Here, all sound icons are played
+        at once, at a moderate volume. As the user cursor passes over an object of interest, its auditory icon is made
+        louder than the others, but the rest remain in the background. This is an extreme notion, and not one that would
+        likely result in user comfort, as it would be very difficult to navigate around the webpage -- there is no
+        spatial information whatsoever for the user.
+        <hr>
+        <br>
       </div>
-    </nav>
-    <h1>Welcome to ECSE424 HCI Group 13 Notebook</h1>
-		<h2>Low-Fidelity Prototype and Test Plan</h2>
+      <div class="container">
+        <h3>II. Prototypes</h3>
+        <br>
+        <p>After we have the sketches, we evaluated all the designs and we picked three of them. The first one we picked
+          was the straightforward design because the speakers and the cursor are all moving in a restricted area with
+          the same shapes. So the advantage of this design is user-friendly. The second design we picked has a similar
+          sound theory to the first design. It is called the newspaper, the user will use it similar to the first one
+          but instead of getting sound horizontally, this time the sound is moving vertically. Just like its name, the
+          users will be like reading a newspaper when navigating the websites. The last one we picked was the
+          semi-cylinder which is one we get after sketching. Compared to the first two designs, semi-cylinder speakers
+          will move closer to the user and the sound is moving in a 3D platform. So we would like to prototype this
+          design to see whether a more surrounded sound environment will bring a better experience to the user.
+          <br>
+          <strong><u>Straight-forward:</u></strong>
+          The user uses the cursor to find the aimed object at the top of the page. When the cursor moves up the page,
+          the speaker will move closer to the user. When the cursor moves down the page, the speaker will move further
+          away from the user.</br>
+        <table>
+          <tr>
+            <td><img src="2 pic/Prototype SF1.PNG" alt="SF1" border=0 width=50% height=auto></td>
+            <td><img src="2 pic/Prototype SF2.PNG" alt="SF2" border=0 width=50% height=auto></td>
+          </tr>
+        </table>
+        <br>
+        Karl has set up the environment for the cursor and the speakers. They all move in a horizontal plane. In the
+        first picture, Karl moves the cursor from the middle to the left side of the page. So in the second picture, you
+        can see the outcome of the speaker that the speaker moves to the right. The reason why it is moving in an
+        opposite way is that the red speaker denotes the aimed red object. At the starting point, the sound of the
+        speaker tells you that it is on the left-hand side. So after the movement, you will know that the object is in
+        front of you. </br>
+        <table>
+          <tr>
+            <td><img src="2 pic/Prototype SF3.PNG" alt="SF3" border=0 width=50% height=auto></td>
+            <td><img src="2 pic/Prototype SF4.PNG" alt="SF4" border=0 width=50% height=auto></td>
+          </tr>
+        </table>
+        <br>
+        Then Karl prototypes what will happens if the cursor goes up. So he first set the cursor at the middle and the
+        two objects are both on the top corners. Then the speakers need to move closer to the user since the user is in
+        the middle. When the cursor moves up in the page then the two speakers move down to the bottom of the page. To
+        think Straight forward in an easy way, we can assume the user(reference of the cursor) always stays at the
+        bottom middle point.
+        <br>
+        <strong><u>Newspaper:</u></strong>
+        Similar to the straight-forward design, but the plane is vertically and perpendicular to the cursor’s moving
+        area. So if our aimed object is at the top of the page then, the speaker will move down when the cursor moves
+        up.
+        <br>
+        Karl has set up the environment this time the speakers move on the wall which is perpendicular to the table. the
+        newspaper design shows the same behavior as the straight-forward that when the cursor moves to the left, the
+        speaker will move to the right. So here we will see how it behaves with two speakers.</br>
+        <table>
+          <tr>
+            <td><img src="2 pic/Prototype N1.PNG" alt="N1" border=0 width=50% height=auto></td>
+            <td><img src="2 pic/Prototype N2.PNG" alt="N2" border=0 width=50% height=auto></td>
+          </tr>
+        </table>
+        <br>
+        We then find the difference that in this design, the user(the reference of the cursor) is assumed to be the
+        middle point. Like the above picture 1 illustrates when the cursor is at the middle point. Two speakers will be
+        exactly upper and downer side of it. In picture 2, the cursor moves down to the green point to the green speaker
+        will be at the middle which is what the user is aiming at.</br>
+        <img src="2 pic/Prototype N3.PNG" alt="N3" width=30% height=auto>
+        <br>
+        Here Karl is a little bit unsure about where to place these two speakers. First of all, the cursor is at the
+        bottom left corner. Then that’s the user’s view and what the user is aiming at. The next step to do is to value
+        the cursor’s position to be the middle point of the speaks’ plane. So we get the answer that the green speaker
+        should be exactly on its right while the red one will be upper than the green one.
+        <br>
+        <strong><u>Semi-cylinder:</u></strong>
+        As you can see from the following graphs, the semi-cylinder design is similar to the newspaper design. But
+        instead of a perpendicular flat plane, the semi-cylinder design is creating a more surrounded environment such
+        that the user can detect the direction of the sound easier.
+        <br>
+        Karl has set up the environment as you can see the user is facing the speaker moving plane. From graph 1 to
+        graph 2 below, Karl moves the cursor to the right such that the two speakers need to move to the middle of the
+        whole plane. From this observation, we know that this design assumes the user to be in the center of the plane
+        also.
+        <table>
+          <tr>
+            <td><img src="2 pic/Prototype SC1.PNG" alt="SC1" border=0 width=50% height=auto></td>
+            <td><img src="2 pic/Prototype SC2.PNG" alt="SC2" border=0 width=50% height=auto></td>
+          </tr>
+        </table>
+        <br>
+        Here is an interesting case, the following picture shares the same result when the cursor is closer to the two
+        objects. Thus the whole plane needs to increase its size to make sure the user can easily track if he/she is
+        close or far from the object.</br>
+        <img src="2 pic/Prototype SC3.PNG" alt="SC3" width=30% height=auto>
+        <br>
+        <strong><u>Conclusion:</u></strong>
+        Karl has done a lot of test cases to see if our picked design works in reality. Although the semi-cylinder could
+        give users a better sound experience. The size of the plane is still a hard thing to think about. Besides, we
+        want to use sensors for transitive signals it is hard to install sensors in this case. Overall, we find some
+        drawbacks of semi-cylinder, so our test designs are straightforward and newspaper.
+
+        </p>
         <br>
         <hr>
         <br>
-        <div class="container">
-            <h3>I. Design concepts</h3>
-            <p>In order to center conceptually around the design process, we step through the <i>10 plus 10</i> design procedure. This seven-step process begins with a formal statement of the design challenge.</p>
-            <h4>The design challenge</h4>
-            <p>There are many existing solutions for internet navigation for those who cannot see the screen (either because of limited vision, or those who situationally do not have access to a screen); most involve discarding the spatial dimension of a website. For example, screen-readers narrate a website content from top to bottom; this reduces the 2-dimensional layout of the website into a 1-dimensional stream, which users can only travserse in one of two directions. For example, passing from the top to the middle of the page necessitates moving through all of the content in between. Eye-tracking data suggest that there are numerous patterns of visual search across a website, including an "F-shaped" pattern in which users scan alternately vertically and horizontally [1].
-            <br><br>
-            In this design challenge, we seek to bring the additional degree of freedom of 2-dimensional website navigation to those that cannot see a screen. In particular, <i>how can we convey the spatial layout of a website using audio?</i></p>
-            
-            <div class="citation">[1] Wang, Qiuzhen, Sa Yang, Manlu Liu, Zike Cao, and Qingguo Ma. 2014. "An eye-tracking study of website complexity from cognitive load perspective." <cite>Decision Support Systems</cite> 62: 1-10.</div>
-            
-            <br>
-            <br>
-            <h4>The design concept</h4>
-            An initial round of sketching leads the team to the following basic design, which forms the basis for ten futher variations. A detailed description follows below.
-            <br>
-            <img class="image_map" src="sketch1.jpeg" alt="Premise of auditory mapping device">
-            <br>
+      </div>
+      <div class="container">
+        <h3>III. Usability goals and benchmark tasks</h3>
+        <h4>Usability Goals:</h4>
+        <p>
+          1. <u>Learnability:</u> The user should be able to learn the sound mapping quickly.</br>
+          We want our users to quickly understand how moving the cursor affects the sounds they hear.</br>
+          2. <u>Ease of use:</u> The user should be able to identify the position of multiple objects on the screen, and
+          determine how they are placed in reference to one another.</br>
+          One of the most popular assistive technologies for visually-impaired internet users is the screen-reader
+          system. Screen readers must necessarily collapse the website into a one-dimensional stream of information, and
+          do not permit users to understand the relative placement of objects in a webpage. The system should allow
+          users to feel that the objects have their own space, and that the cursor helps them move towards the
+          object.</br>
+          3. <u>Efficiency:</u> The system should not be stressful or cause any sort of sound anxiety to the user.
+          Instead, it should feel helpful and inviting.</br>
+          The system is intended to be an every-day assistant to the visually impaired. Therefore, it cannot be
+          stressful to the ears or to the mind. The system should feel inviting, comfortable, and help the user orient
+          themselves by sound cues. After two to three minutes of use, the user should have a reasonable sense of where
+          every object is on the page. </br>
+          4. <u>Effectiveness:</u> The system should permit the user to find objects with confidence, and without
+          spending too much time thinking.</br>
+          Users should be able to navigate into a new webpage and directly follow the sound cues towards an object of
+          interest. The experience should be faster, less stressful, and require fewer interactions than current
+          screen-reader assistants. The auditory scene should be inviting and pleasant to the user, who will in turn
+          become familiar with the sound environment associated with a given page, and will be able to come back at any
+          time knowing where objects are placed.</br>
+          5. <u>Satisfaction:</u> Users should feel like their browsing experience has become better and faster. They
+          should feel like they know where everything is on the website.</br>
+          The goal of this project is to help visually impaired users with the issue of orientation when navigating
+          websites. Therefore, it is essential that users feel the system is not only pleasant to use, but helpful.
+          <br>
+          <br>
+        <h4>Benchmark tests:</h4>
+        1. Navigate towards the object that is closest to your cursor, and double click.</br>
+        2. Move your cursor at the other object on the page; double click when you have arrived there.</br>
+        3. Find the halfway point between these two objects, and double click.</br>
+        4. Find the greatest distance from the two objects without reaching the edge of the website, and double
+        click.</br>
+        5. Make a rough sketch of the layout of the page as you imagined it.
+        <br>
+        (Repeat with “Straight-forward,” and “Newspaper” layout prototypes, each with different image positions)
+        </p>
+        <br>
+        <hr>
+        <br>
+      </div>
+      <div class="container">
+        <h3>IV. Test materials</h3>
+        <br>
+        <ul>
+          <li>
+            <a href="User Introduction-3.pdf" download>User Introduction</a>
+          </li>
+          <li>
+            <a href="Pre and Post Questionnaire-2.pdf" download>Pre and Post Questionnaire</a>
+          </li>
+          <li>
+            <a href="Participant Consent Form.pdf" download>Participant Consent Form</a>
+          </li>
+          <li>
+            <a href="Data Collection Sheet.pdf" download>Data Collection Sheet</a>
+          </li>
+        </ul>
+        <br>
+        <hr>
+        <br>
+      </div>
+      <div class="container">
+        <h3>V. Summary of test results</h3>
+        <br>
+        <video controls>
+          <source src="HCI542_trim_straightforward_prototype2_480p.mov" type="video/mp4">
+        </video>
+        <b>>Description of video</b>. The participant is completing the first task, "find the closest object to your
+        cursor," using the second prototype tests. The second prototype, nicknamed "the straight-forward," situates the
+        user in the middle of a flat 2-d plane. Objects below the cursor are mapped to behind the user; objects above
+        the cursor are mapped to in front of the user; left and right are mapped as usual.
+        <br><br>
+        The electrical source is generating two simple sounds, a sine tone of a certain pitch, accompanied by pink
+        noise, though a low frequency sawtooth amplitude envelope; each is mapped to one of the left and right speakers.
+        Two experimentors "Wizard of Oz" the location of the speakers, by consulting the location of the participant's
+        "cursor" (finger) on the "website" (the paper with a simple illustration). The experimentors orient themselves
+        roughly by using the grid of tape on the table. In the other tested prototyped, "the newspaper," a similar grid
+        marks the wall.
+        <br>
+        <br>
+        Each participant was filmed during testing, and was observed remotely by a third experimentor via video-chat.
+        <br><br>
+        <h4>Task-relevent test results</h4>
+        <b>Task 1: Navigate towards the closest object to your cursor</b>. Both subjects reported initially feeling lost
+        and having to make rapid decisions about where to navigate. The second participant, after mentioning this
+        explicitly out loud, proceeded to adjust their behaviour for the second prototype, and making quick decisions
+        was able to readily find the target objects. Participant 1 took an average of 84 seconds to find the first
+        object. Participant 2 took an average of 11 seconds.
+        <br><br>
+        <b>Task 2: Move your cursor to the other object</b>. Performance on this task was largely a function of the
+        amount of time spent on the first task. Participants who spent a long time on finding the first object reported
+        feeling "lost" after several seconds of searching. User comments from this task include "this is really hard!"
+        and "this is difficult." Participants who were decisive and navigated quickly tended to make fewer reversals,
+        and find the second object with greater accuracy and in less time.
+        <br><br>
+        <b>Task 3: Find the halfway point between these two objects</b>. This was a difficult task for participants to
+        achieve; neither participant pointed to physically half-way between the two objects at any point; however,
+        Participant 2 consistently found a spot that was equidistant from both objects/sound sources, though not
+        necessarily half-way between. Participant 1, who was "lost," could not find a satisfactory half-way point.
+        <br><br>
+        <b>Task 4: Find the greatest distance from these two objects</b>. This task, which was meant to determine
+        whether users could find the edge of the page, or of the website, was confounded by poor prototype-and-test
+        design. Participants were easily able to feel the edge of the paper page, and commenting "is this the edge?" and
+        "am I allowed to go outside of the paper?". Participants were generally more decisive in this task (i.e.,
+        double-clicked in less time, and made fewer reversals) when using the <i>straight-forward</i> prototype;
+        performance was almost random with the <i>newspaper</i> prototype.
+        <br><br>
+        <b>Task 5: Make a rough sketch of the layout</b>. This was perhaps the most informative and surprising of all
+        tasks. In general, sketches made in the <i>straight-forward</i> prototype were accompanied by more decisive
+        comments than with the <i>newspaper</i> prototype. Even when users reported feeling lost, they were able to
+        determine the relative distance of the two objects, placing them at far ends of the top-and-bottom of page as
+        per our test designs. Interestingly, in three of the four sketches received, <b>the left and right axes were
+          consistently flipped</b>. That is to say, the up-and-down structure of the layout was in tact, but objects on
+        the left side of the screen were mapped to the right side of the sketch, and visa versa. The exact mechanism of
+        this effect is not known; though it is worth considering this effect when moving forward with the design. For
+        example, is it important that users map left to true left, so long as they have a sense of the general
+        topography of the webpage? And if so, would reversing the left-and-right panning of the prototype ameliorate
+        this behaviour?
+        <br><br>
+        <h4>Summary Table</h4>
+        <style type="text/css">
+          .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+          }
 
-            <b>Description.</b> These sketches are meant to be self-explanatory; however, for the curious reader we provide detailed information in this paragraph. The user is wearing head phones and has access to a standard mouse or trackpad device. In the top figure, the dotted box represents an audio field, i.e., audio that has been mapped to the left and right speakers of the heaphones to create some illusion of a three-dimensional space. In the second figure, three schematic links, labeled "1" "2" and "3," are shown near a cursor. These links are assigned auditory "icons," indicated by the speakers in the third figure. Based on their spatial relationship to the cursor, these auditory icons are mapped to different locations in the audio field. As an example, we show a hemi-cylindrical field.
-            <br><br>
-            This design shows considerable promise, but the format permits many possible variations; specifically, there are many ways to map the locations of the links to an audio field. We explore these possibilities in the next step of the <i>10 plus 10</i> methodology, by sketching ten variations on this theme.
-            <br><br>
-            <img class="image_map" src="sketch2.jpeg" alt="A second overview">
-            <b>Description.</b> A secondary early sketch of links, layouts and auditory icons. We introduce the phrase "cocktail party" to refer to the "cocktail party problem," a phenomenon in auditory psychology refering a human auditor's natural ability to pick out and focus on one voice from among many intermingled in a crowd. To what extent can the team take advantage of this phenomenon, and turn a busy website layout into an auditory cocktail party?
-            <br><br>
-            <img class="image_map" src="sketch3.jpeg" alt="Three initial variations">
-            <b>Description.</b> Three initial variations. We determine early on in the sketching process that it is useful to give each sketch a nickname, when discussing the relative merits and problems of each. The first sketch is "<i>the straight-forward</i>": here, the website is mapped to a flat plane that recedes away from the user. Links higher up the page are sonified as farther away. We indicate in the sketch that "distant" is achieved by adding extra reverb or echo to the most distant sounds. "<i>The newspaper</i>": this idea is very similar to the former; here the website "hovers" in front of the user. Links closest to the cursor are brought closest to ear-level. <i>"The bisector"</i> is a variation on the first sketch; here however, the user is immersed in the page. Links below the user cursor are mapped to a sound behind the user (it should be noted, however, that this is particularly difficult to achieve as a binaural auditory illusion).
-            <br><br>
-            <img class="image_map" src="sketch4.jpeg" alt="Three more variations.">
-            <b>Description.</b> <i>"The hemisphere"</i> makes an exaggerated view of the website by wrapping it around the user's head. This takes advantage of the fact that auditors have greater spatial acuity for sounds approaching from the side, rather than sounds coming head on. <i>"The vortx"</i> build on the idea of distorted mapping, by placing a particularly strong emphasis on the links near the cursor. Here they are brought closer to the user's head, while the backgrounded sounds remain distant (with relatively greater reverb/echo). <i>"The buried"</i> is an exaggerated combination of the straight-forward and newspaper concepts. Here the plane is tilted backwards, to take advantage of both distance- and elevation-related auditory spatial cues; the sketch gets its name from the fact that the closest sounds are spectrally altered to sound muffled (perhaps with a simple low-pass filter).
-            <br><br>
-            <img class="image_map" src="sketch5.jpeg" alt="Two more variations">
-            <b>Description.</b> With the following sketches we start to move away from the more literal mapping, and start to play with intermediate filtering and sorting steps. In <i>"the spotlight"</i>, only those links that are close to cursor are sonified. This setup encourages exploration on the part of the user, but will not give a full overview of the layout of the page. Perhaps the reduced complexity will make for a more pleasant browsing experience. The <i>"rearranger"</i> builds on the idea of focus and simplicity by sorting the page into thematically related clusters. Each cluster gets its own auditory icon; and by clicking on this icon, the user steps to the next level of detail, e.g., exposing the auditory icons of the constituent links.
-            <br><br>
-            <img class="image_map" src="sketch6.jpeg" alt="Last two variations">
-            <b>Description.</b> Here we continue to play with the idea of segmetation and simplification. In <i>"the architect,"</i> rather than intelligently cluster links, the website is subdivided into smaller "rooms". Each room is given its own sound-icon based on its location on the main page layout. By clicking to enter a room, the user is presented with a smaller, concise sonified layout as in one of the earlier designs. Finally in <i>"the heap"</i> we seek to explictly take advantage of the cocktail party effect. Here, all sound icons are played at once, at a moderate volume. As the user cursor passes over an object of interest, its auditory icon is made louder than the others, but the rest remain in the background. This is an extreme notion, and not one that would likely result in user comfort, as it would be very difficult to navigate around the webpage -- there is no spatial information whatsoever for the user.
-            <hr>
-            <br>
-         </div>   
-        <div class="container">
-            <h3>II. Prototypes</h3>
-            <br>
-            <p>After we have the sketches, we evaluated all the designs and we picked three of them. The first one we picked was the straightforward design because the speakers and the cursor are all moving in a restricted area with the same shapes. So the advantage of this design is user-friendly. The second design we picked has a similar sound theory to the first design. It is called the newspaper, the user will use it similar to the first one but instead of getting sound horizontally, this time the sound is moving vertically. Just like its name, the users will be like reading a newspaper when navigating the websites. The last one we picked was the semi-cylinder which is one we get after sketching. Compared to the first two designs, semi-cylinder speakers will move closer to the user and the sound is moving in a 3D platform. So we would like to prototype this design to see whether a more surrounded sound environment will bring a better experience to the user.
-            <br>
-            <strong><u>Straight-forward:</u></strong>
-            The user uses the cursor to find the aimed object at the top of the page. When the cursor moves up the page, the speaker will move closer to the user. When the cursor moves down the page, the speaker will move further away from the user.</br>
-            <table><tr>
-            <td><img src="2 pic/Prototype SF1.PNG" alt="SF1" border=0 width=50% height=auto></td>
-            <td><img src="2 pic/Prototype SF2.PNG" alt="SF2" border=0 width=50% height=auto></td>
-            </tr></table>
-            <br>
-            Karl has set up the environment for the cursor and the speakers. They all move in a horizontal plane. In the first picture, Karl moves the cursor from the middle to the left side of the page. So in the second picture, you can see the outcome of the speaker that the speaker moves to the right. The reason why it is moving in an opposite way is that the red speaker denotes the aimed red object. At the starting point, the sound of the speaker tells you that it is on the left-hand side. So after the movement, you will know that the object is in front of you. </br>
-            <table><tr>
-                <td><img src="2 pic/Prototype SF3.PNG" alt="SF3" border=0 width=50% height=auto></td>
-                <td><img src="2 pic/Prototype SF4.PNG" alt="SF4" border=0 width=50% height=auto></td>
-                </tr></table>
-                <br>
-                Then Karl prototypes what will happens if the cursor goes up. So he first set the cursor at the middle and the two objects are both on the top corners. Then the speakers need to move closer to the user since the user is in the middle. When the cursor moves up in the page then the two speakers move down to the bottom of the page. To think Straight forward in an easy way, we can assume the user(reference of the cursor) always stays at the bottom middle point.
-                <br>
-                <strong><u>Newspaper:</u></strong>
-                Similar to the straight-forward design, but the plane is vertically and perpendicular to the cursor’s moving area. So if our aimed object is at the top of the page then, the speaker will move down when the cursor moves up.
-                <br>
-                Karl has set up the environment this time the speakers move on the wall which is perpendicular to the table. the newspaper design shows the same behavior as the straight-forward that when the cursor moves to the left, the speaker will move to the right. So here we will see how it behaves with two speakers.</br>
-                <table><tr>
-                    <td><img src="2 pic/Prototype N1.PNG" alt="N1" border=0 width=50% height=auto></td>
-                    <td><img src="2 pic/Prototype N2.PNG" alt="N2" border=0 width=50% height=auto></td>
-                    </tr></table>
-                    <br>
-                    We then find the difference that in this design, the user(the reference of the cursor) is assumed to be the middle point. Like the above picture 1 illustrates when the cursor is at the middle point. Two speakers will be exactly upper and downer side of it. In picture 2, the cursor moves down to the green point to the green speaker will be at the middle which is what the user is aiming at.</br>
-                    <img src="2 pic/Prototype N3.PNG" alt="N3" width=30% height=auto>
-                    <br>
-                    Here Karl is a little bit unsure about where to place these two speakers. First of all, the cursor is at the bottom left corner. Then that’s the user’s view and what the user is aiming at. The next step to do is to value the cursor’s position to be the middle point of the speaks’ plane. So we get the answer that the green speaker should be exactly on its right while the red one will be upper than the green one.
-                    <br>
-                    <strong><u>Semi-cylinder:</u></strong>
-                    As you can see from the following graphs, the semi-cylinder design is similar to the newspaper design. But instead of a perpendicular flat plane, the semi-cylinder design is creating a more surrounded environment such that the user can detect the direction of the sound easier. 
-                    <br>
-                    Karl has set up the environment as you can see the user is facing the speaker moving plane. From graph 1 to graph 2 below, Karl moves the cursor to the right such that the two speakers need to move to the middle of the whole plane. From this observation, we know that this design assumes the user to be in the center of the plane also. 
-                    <table><tr>
-                        <td><img src="2 pic/Prototype SC1.PNG" alt="SC1" border=0 width=50% height=auto></td>
-                        <td><img src="2 pic/Prototype SC2.PNG" alt="SC2" border=0 width=50% height=auto></td>
-                        </tr></table>
-                    <br>
-                    Here is an interesting case, the following picture shares the same result when the cursor is closer to the two objects. Thus the whole plane needs to increase its size to make sure the user can easily track if he/she is close or far from the object.</br>
-                    <img src="2 pic/Prototype SC3.PNG" alt="SC3" width=30% height=auto>
-                    <br>
-                    <strong><u>Conclusion:</u></strong>
-                    Karl has done a lot of test cases to see if our picked design works in reality. Although the semi-cylinder could give users a better sound experience. The size of the plane is still a hard thing to think about. Besides, we want to use sensors for transitive signals it is hard to install sensors in this case. Overall, we find some drawbacks of semi-cylinder, so our test designs are straightforward and newspaper.
+          .tg td {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+          }
 
-            </p>
-            <br>
-            <hr>
-            <br>
-        </div>
-        <div class="container">
-            <h3>III. Usability goals and benchmark tasks</h3>
-            <h4>Usability Goals:</h4>
-                <p>
-                1. <u>Learnability:</u> The user should be able to learn the sound mapping quickly.</br>
-                We want our users to quickly understand how moving the cursor affects the sounds they hear.</br>
-                2. <u>Ease of use:</u> The user should be able to identify the position of multiple objects on the screen, and determine how they are placed in reference to one another.</br>
-                One of the most popular assistive technologies for visually-impaired internet users is the screen-reader system. Screen readers must necessarily collapse the website into a one-dimensional stream of information, and do not permit users to understand the relative placement of objects in a webpage. The system should allow users to feel that the objects have their own space, and that the cursor helps them move towards the object.</br>
-                3. <u>Efficiency:</u> The system should not be stressful or cause any sort of sound anxiety to the user. Instead, it should feel helpful and inviting.</br>
-                The system is intended to be an every-day assistant to the visually impaired. Therefore, it cannot be stressful to the ears or to the mind. The system  should feel inviting, comfortable, and help the user orient themselves by sound cues. After two to three minutes of use, the user should have a reasonable sense of where every object is on the page. </br>
-                4. <u>Effectiveness:</u> The system should permit the user to find objects with confidence, and without spending too much time thinking.</br>
-                Users should be able to navigate into a new webpage and directly follow the sound cues towards an object of interest. The experience should be faster, less stressful, and require fewer interactions than current screen-reader assistants. The auditory scene should be inviting and pleasant to the user, who will in turn become familiar with the sound environment associated with a given page, and will be able to come back at any time knowing where objects are placed.</br>
-                5. <u>Satisfaction:</u> Users should feel like their browsing experience has become better and faster. They should feel like they know where everything is on the website.</br>
-                The goal of this project is to help visually impaired users with the issue of orientation when navigating websites. Therefore, it is essential that users feel the system is not only pleasant to use, but helpful.
-                <br>
-                <br>               
-                <h4>Benchmark tests:</h4>
-                1. Navigate towards the object that is closest to your cursor, and double click.</br>
-                2. Move your cursor at the other object on the page; double click when you have arrived there.</br>
-                3. Find the halfway point between these two objects, and double click.</br>
-                4. Find the greatest distance from the two objects without reaching the edge of the website, and double click.</br>
-                5. Make a rough sketch of the layout of the page as you imagined it.
-                <br>
-                (Repeat with “Straight-forward,” and “Newspaper” layout prototypes, each with different image positions)
-                </p>
-            <br>
-            <hr>
-            <br>
-        </div>
-        <div class="container">
-            <h3>IV. Test materials</h3>
-            <br>
-            <ul>
-                <li>
-                    <a href="User Introduction-3.pdf" download>User Introduction</a>
-                </li>
-                <li>
-                    <a href="Pre and Post Questionnaire-2.pdf" download>Pre and Post Questionnaire</a>
-                </li>
-                <li>
-                    <a href="Participant Consent Form.pdf" download>Participant Consent Form</a>
-                </li>
-                <li>
-                    <a href="Data Collection Sheet.pdf" download>Data Collection Sheet</a>
-                </li>
-            </ul>
-            <br>
-            <hr>
-            <br>
-        </div>
-        <div class="container">
-            <h3>V. Summary of test results</h3>
-            <br>
-            <video controls><source src="HCI542_trim_straightforward_prototype2_480p.mov" type="video/mp4"></video>
-            <b>>Description of video</b>. The participant is completing the first task, "find the closest object to your cursor," using the second prototype tests. The second prototype, nicknamed "the straight-forward," situates the user in the middle of a flat 2-d plane. Objects below the cursor are mapped to behind the user; objects above the cursor are mapped to in front of the user; left and right are mapped as usual.
-            <br><br>
-            The electrical source is generating two simple sounds, a sine tone of a certain pitch, accompanied by pink noise, though a low frequency sawtooth amplitude envelope; each is mapped to one of the left and right speakers. Two experimentors "Wizard of Oz" the location of the speakers, by consulting the location of the participant's "cursor" (finger) on the "website" (the paper with a simple illustration). The experimentors orient themselves roughly by using the grid of tape on the table. In the other tested prototyped, "the newspaper," a similar grid marks the wall.
-            <br>
-            <br>
-            Each participant was filmed during testing, and was observed remotely by a third experimentor via video-chat.
-            <br><br>
-            <h4>Task-relevent test results</h4>
-            <b>Task 1: Navigate towards the closest object to your cursor</b>. Both subjects reported initially feeling lost and having to make rapid decisions about where to navigate. The second participant, after mentioning this explicitly out loud, proceeded to adjust their behaviour for the second prototype, and making quick decisions was able to readily find the target objects. Participant 1 took an average of 84 seconds to find the first object. Participant 2 took an average of 11 seconds. 
-            <br><br>
-            <b>Task 2: Move your cursor to the other object</b>. Performance on this task was largely a function of the amount of time spent on the first task. Participants who spent a long time on finding the first object reported feeling "lost" after several seconds of searching. User comments from this task include "this is really hard!" and "this is difficult." Participants who were decisive and navigated quickly tended to make fewer reversals, and find the second object with greater accuracy and in less time.
-            <br><br>
-            <b>Task 3: Find the halfway point between these two objects</b>. This was a difficult task for participants to achieve; neither participant pointed to physically half-way between the two objects at any point; however, Participant 2 consistently found a spot that was equidistant from both objects/sound sources, though not necessarily half-way between. Participant 1, who was "lost," could not find a satisfactory half-way point.
-            <br><br>
-            <b>Task 4: Find the greatest distance from these two objects</b>. This task, which was meant to determine whether users could find the edge of the page, or of the website, was confounded by poor prototype-and-test design. Participants were easily able to feel the edge of the paper page, and commenting "is this the edge?" and "am I allowed to go outside of the paper?". Participants were generally more decisive in this task (i.e., double-clicked in less time, and made fewer reversals) when using the <i>straight-forward</i> prototype; performance was almost random with the <i>newspaper</i> prototype.
-            <br><br>
-            <b>Task 5: Make a rough sketch of the layout</b>. This was perhaps the most informative and surprising of all tasks. In general, sketches made in the <i>straight-forward</i> prototype were accompanied by more decisive comments than with the <i>newspaper</i> prototype. Even when users reported feeling lost, they were able to determine the relative distance of the two objects, placing them at far ends of the top-and-bottom of page as per our test designs. Interestingly, in three of the four sketches received, <b>the left and right axes were consistently flipped</b>. That is to say, the up-and-down structure of the layout was in tact, but objects on the left side of the screen were mapped to the right side of the sketch, and visa versa. The exact mechanism of this effect is not known; though it is worth considering this effect when moving forward with the design. For example, is it important that users map left to true left, so long as they have a sense of the general topography of the webpage? And if so, would reversing the left-and-right panning of the prototype ameliorate this behaviour?
-            <br><br>
-            <h4>Summary Table</h4>
-            <style type="text/css">
-                .tg  {border-collapse:collapse;border-spacing:0;}
-                .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-                  overflow:hidden;padding:10px 5px;word-break:normal;}
-                .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-                  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-                .tg .tg-0lax{text-align:left;vertical-align:top}
-                </style>
-                <table class="tg">
-                <thead>
-                  <tr>
-                    <th class="tg-0lax"><span style="font-weight:bold">Task/Prototype</span></th>
-                    <th class="tg-0lax"><span style="font-weight:bold">Time to Completion (sec)</span></th>
-                    <th class="tg-0lax"><span style="font-weight:bold">Num. Errors (reversals)</span></th>
-                    <th class="tg-0lax"><span style="font-weight:bold">Note</span></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="tg-0lax">"Newspaper" 1</td>
-                    <td class="tg-0lax">[72, 74]</td>
-                    <td class="tg-0lax">[13, 15]</td>
-                    <td class="tg-0lax">User comment: "this is hard," "I'm very confused"</td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">"Straight-forward" 1</td>
-                    <td class="tg-0lax">[10, 112]</td>
-                    <td class="tg-0lax">[3, 21]</td>
-                    <td class="tg-0lax">User comment: (stops). "Sorry, I'm lost."</td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">"Newspaper" 2</td>
-                    <td class="tg-0lax">[15, 89]</td>
-                    <td class="tg-0lax">[6, 11]</td>
-                    <td class="tg-0lax">User comment: "The longer you spend the easier it is to get lost"</td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">"Straight-forward" 2</td>
-                    <td class="tg-0lax">[19, 67]</td>
-                    <td class="tg-0lax">[5, 13]</td>
-                    <td class="tg-0lax">User comment: "Wait, there are two sounds playing now?"</td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">"Newspaper"&nbsp;&nbsp;3</td>
-                    <td class="tg-0lax">[61, 160]</td>
-                    <td class="tg-0lax">[12, 18]</td>
-                    <td class="tg-0lax">Participant finds spot equidistant from object 1/2, but not half-way between.</td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">"Straight-forward" 3</td>
-                    <td class="tg-0lax">[55, 62]</td>
-                    <td class="tg-0lax">[9, 14]</td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">"Newspaper" 4</td>
-                    <td class="tg-0lax">[34, 141]</td>
-                    <td class="tg-0lax">[7, 10]</td>
-                    <td class="tg-0lax">Inconclusive. Participant feels edge of page and stops.</td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">"Straight-forward" 4</td>
-                    <td class="tg-0lax">[31, 175]</td>
-                    <td class="tg-0lax">[15, 22]</td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">"Newspaper" 5</td>
-                    <td class="tg-0lax">N/A</td>
-                    <td class="tg-0lax">N/A</td>
-                    <td class="tg-0lax">Sketches reversed left-right.</td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax"><span style="background-color:#FFF">"Straight-forward" 5</span></td>
-                    <td class="tg-0lax">N/A</td>
-                    <td class="tg-0lax">N/A</td>
-                    <td class="tg-0lax">Sketches reversed left-right.</td>
-                  </tr>
-                </tbody>
-                </table>
-            <br><br>
-            <h4>General Observations</h4>
-            <b>Sound uniqueness</b>. Multiple participants commented that the sounds were different to tell apart: "there are two sounds?", "are they supposed to be different?". In the future we should focus on sounds that are pleasant to listen to for a long time, sounds that evolve over time as a conversation or a piece of music would; for example, a bird call.
-            <br><br>
-            <b>Concentration</b>. Multiple participants also commented on having to "think quickly," because "the longer you listen, it's easy to get lost." Participant 1 took a long time to hone in on a precise location, and as a result ended up wandering across the page several times, eventually landing fairly far from the objective target. Participant 2 worked quickly, and achieved great accuracy in cursor placement.
-            <br><br>
-            <b>Flipped axes</b>. As mentioned above, users consistently flipped the left-right axes of their aural map of the website. This phenomenon must be addressed moving forward.
-            <br><br>
-            <b>Practicality of prototyping with sound</b>. It was rather hard for the experimentors to Wizard of Oz in response to the quick cursor gestures of the user. In the future, we should assess the limitations of our performance and ensure that participants are aware of these limitations before experimentation (e.g., "Please move your cursor slowly.") 
-            <br>
-            <hr>
-            <br>
-        </div>
-    </body>
+          .tg th {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+          }
+
+          .tg .tg-0lax {
+            text-align: left;
+            vertical-align: top
+          }
+        </style>
+        <table class="tg">
+          <thead>
+            <tr>
+              <th class="tg-0lax"><span style="font-weight:bold">Task/Prototype</span></th>
+              <th class="tg-0lax"><span style="font-weight:bold">Time to Completion (sec)</span></th>
+              <th class="tg-0lax"><span style="font-weight:bold">Num. Errors (reversals)</span></th>
+              <th class="tg-0lax"><span style="font-weight:bold">Note</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tg-0lax">"Newspaper" 1</td>
+              <td class="tg-0lax">[72, 74]</td>
+              <td class="tg-0lax">[13, 15]</td>
+              <td class="tg-0lax">User comment: "this is hard," "I'm very confused"</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">"Straight-forward" 1</td>
+              <td class="tg-0lax">[10, 112]</td>
+              <td class="tg-0lax">[3, 21]</td>
+              <td class="tg-0lax">User comment: (stops). "Sorry, I'm lost."</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">"Newspaper" 2</td>
+              <td class="tg-0lax">[15, 89]</td>
+              <td class="tg-0lax">[6, 11]</td>
+              <td class="tg-0lax">User comment: "The longer you spend the easier it is to get lost"</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">"Straight-forward" 2</td>
+              <td class="tg-0lax">[19, 67]</td>
+              <td class="tg-0lax">[5, 13]</td>
+              <td class="tg-0lax">User comment: "Wait, there are two sounds playing now?"</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">"Newspaper"&nbsp;&nbsp;3</td>
+              <td class="tg-0lax">[61, 160]</td>
+              <td class="tg-0lax">[12, 18]</td>
+              <td class="tg-0lax">Participant finds spot equidistant from object 1/2, but not half-way between.</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">"Straight-forward" 3</td>
+              <td class="tg-0lax">[55, 62]</td>
+              <td class="tg-0lax">[9, 14]</td>
+              <td class="tg-0lax"></td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">"Newspaper" 4</td>
+              <td class="tg-0lax">[34, 141]</td>
+              <td class="tg-0lax">[7, 10]</td>
+              <td class="tg-0lax">Inconclusive. Participant feels edge of page and stops.</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">"Straight-forward" 4</td>
+              <td class="tg-0lax">[31, 175]</td>
+              <td class="tg-0lax">[15, 22]</td>
+              <td class="tg-0lax"></td>
+            </tr>
+            <tr>
+              <td class="tg-0lax">"Newspaper" 5</td>
+              <td class="tg-0lax">N/A</td>
+              <td class="tg-0lax">N/A</td>
+              <td class="tg-0lax">Sketches reversed left-right.</td>
+            </tr>
+            <tr>
+              <td class="tg-0lax"><span style="background-color:#FFF">"Straight-forward" 5</span></td>
+              <td class="tg-0lax">N/A</td>
+              <td class="tg-0lax">N/A</td>
+              <td class="tg-0lax">Sketches reversed left-right.</td>
+            </tr>
+          </tbody>
+        </table>
+        <br><br>
+        <h4>General Observations</h4>
+        <b>Sound uniqueness</b>. Multiple participants commented that the sounds were different to tell apart: "there
+        are two sounds?", "are they supposed to be different?". In the future we should focus on sounds that are
+        pleasant to listen to for a long time, sounds that evolve over time as a conversation or a piece of music would;
+        for example, a bird call.
+        <br><br>
+        <b>Concentration</b>. Multiple participants also commented on having to "think quickly," because "the longer you
+        listen, it's easy to get lost." Participant 1 took a long time to hone in on a precise location, and as a result
+        ended up wandering across the page several times, eventually landing fairly far from the objective target.
+        Participant 2 worked quickly, and achieved great accuracy in cursor placement.
+        <br><br>
+        <b>Flipped axes</b>. As mentioned above, users consistently flipped the left-right axes of their aural map of
+        the website. This phenomenon must be addressed moving forward.
+        <br><br>
+        <b>Practicality of prototyping with sound</b>. It was rather hard for the experimentors to Wizard of Oz in
+        response to the quick cursor gestures of the user. In the future, we should assess the limitations of our
+        performance and ensure that participants are aware of these limitations before experimentation (e.g., "Please
+        move your cursor slowly.")
+        <br>
+        <hr>
+        <br>
+      </div>
+</body>
+
 </html>

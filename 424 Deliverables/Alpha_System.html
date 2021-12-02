@@ -1,134 +1,195 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>ECSE424 Group 13 Notebook</title>
   <link rel='stylesheet' href='bootstrap.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
-    <link rel="stylesheet" href="style1.css">
-<style>
-h1 {text-align: center;}
-h2 {text-align: center;}
-.headshot{
-width: 200px;
-}
-h3,
-            .h3 {
-                text-align: center;
-                font-size: 150%;
-            }
-.container{
-		        text-align: left;
-		        font-size: 18px;
-		    }
-</style>
+  <link rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
+  <link rel="stylesheet" href="style1.css">
+  <style>
+    h1 {
+      text-align: center;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .headshot {
+      width: 200px;
+    }
+
+    h3,
+    .h3 {
+      text-align: center;
+      font-size: 150%;
+    }
+
+    .container {
+      text-align: left;
+      font-size: 18px;
+    }
+
+    /* The navigation bar */
+    .container-fluid {
+      overflow: auto;
+      background-color: #263238;
+      position: fixed;
+      /* Set the navbar to fixed position */
+      top: 0;
+      /* Position the navbar at the top of the page */
+      width: 100%;
+      /* Full width */
+    }
+
+    /* Links inside the navbar */
+    .container-fluid a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 12px;
+      text-decoration: none;
+      width: 400px;
+    }
+
+    /* Change background on mouse-over */
+    .container-fluid a:hover {
+      background: #ddd;
+      color: black;
+    }
+  </style>
 </head>
+
 <body>
-<!-- partial:index.partial.html -->
-<div id="viewport">
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <header>
-      <a href="#">Deliverables</a>
-    </header>
-    <ul class="nav">
-  <li>
-        <a href="index.html">
-           Home
-        </a>
-      </li>
-    
-<li>
-        <a href="Observation.html">
-           Observations and Proposal
-        </a>
-      </li>
-      <li>
-        <a href="l-fi-prototype.html">
-           Low-Fidelity Prototype and Test Plan
-        </a>
-      </li>
-      <li>
-        <a href="Computer-Prototype.html">
-           Computer Prototype
-        </a>
-      </li>
-      <li>
-        <a href="Formative Feedback.html">
-          Formative Feedback
-        </a>
-      </li>
-      <li>
-        <a href="Alpha_System.html" class="active">
-           Alpha System
-        </a>
-      </li>
-      <li>
-        <a href="Beta_System.html">
-           Beta System
-        </a>
-      </li>
-    </ul>
-  </div>
-  <!-- Content -->
-  <div id="content">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        
-      </div>
-    </nav>
+  <!-- partial:index.partial.html -->
+  <div id="viewport">
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <header>
+        <a href="#">Deliverables</a>
+      </header>
+      <ul class="nav">
+        <li>
+          <a href="index.html">
+            Home
+          </a>
+        </li>
 
-    <h1>Welcome to ECSE424 HCI Group 13 Notebook</h1>
-			<h2>Alpha System</h2>
+        <li>
+          <a href="Observation.html">
+            Observations and Proposal
+          </a>
+        </li>
+        <li>
+          <a href="l-fi-prototype.html">
+            Low-Fidelity Prototype and Test Plan
+          </a>
+        </li>
+        <li>
+          <a href="Computer-Prototype.html">
+            Computer Prototype
+          </a>
+        </li>
+        <li>
+          <a href="Formative Feedback.html">
+            Formative Feedback
+          </a>
+        </li>
+        <li>
+          <a href="Alpha_System.html" class="active">
+            Alpha System
+          </a>
+        </li>
+        <li>
+          <a href="Beta_System.html">
+            Beta System
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- Content -->
+    <div id="content">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <a href="Formative Feedback.html">Prev: Formative Feedback</a>
+          <a href="index.html">Home</a>
+          <a href="Beta_System.html">Next: Beta System</a>
+        </div>
+      </nav>
+
+      <h1>Welcome to ECSE424 HCI Group 13 Notebook</h1>
+      <h2>Alpha System</h2>
+      <br>
+      <hr>
+      <br>
+      <div class="container">
+        <h3>I. Design Evolution</h3>
+        <br>
+        <p>According to the formative feedback and reflection from the computer prototype, we implement more features
+          and improve existing features shown as below:
+          <br>
+          <br>
+          1. The first that improved was an implementation of a swivel sound that makes users hear the same way as they
+          hear in a natural environment with different sounds around. One of the formative feedback is that they find
+          the position of the aiming button is a little bit hard to find. They take longer than in the environment
+          surrounded by some sounds. Before the implementation, we assume that the mouse represents a user-facing
+          "forward”, which is “up” on the screen/website axis. We added momentum to the user’s direction during the
+          implementation, such that when they move their mouse position to the left. The user feels as if it rotates
+          slightly to the right, and then slowly transitions back to forward-facing. This allows users to feel the
+          sounds are surrounding them. Users can better detect the exact position of the aiming object. This is an
+          improvement in usability, users can hear sounds from aiming buttons easier.
+          <br>
+          <br>
+          2. The second that improved was sound stopping function. One of the peers who commented on our computer
+          prototype pointed out that he used two screens while testing our prototype. When he moved from one screen to
+          another screen, the sound was still working. To increase usability, our group fixed the bug that he pointed
+          out. Whenever the cursor was out of the page, all sounds stopped automatically. When the cursor went back to
+          the page, all sounds automatically started again. This is an improvement in usability also such that users can
+          use two screens or multiple pages while using our system.
+          <br>
+          <br>
+          3. The third that improved was our ticking sounds. Peers who gave formative feedback figured out that the
+          ticking sound was not continuous, not quick, and could not be heard clearly. So, we solved this situation by
+          making the ticking sound faster and louder. Besides, we used private methods to solve the bugs of ticking
+          which was the urgent thing to fix in the first place. This is a huge improvement in usability, the users will
+          be glad that we took their suggestions and improved the problems to fit all their wants.
+        </p>
+        <br>
+        <hr>
+        <br>
+        <div class="container">
+          <h3>II. Prototype Revisions</h3>
+          <br>
+          <p>Our system requires no installation and runs in the modern browser Google Chrome.
             <br>
-            <hr>
             <br>
-            <div class="container">
-                <h3>I. Design Evolution</h3>
-                <br>
-                <p>According to the formative feedback and reflection from the computer prototype, we implement more features and improve existing features shown as below:
-                <br>
-                <br>
-                    1. The first that improved was an implementation of a swivel sound that makes users hear the same way as they hear in a natural environment with different sounds around. One of the formative feedback is that they find the position of the aiming button is a little bit hard to find. They take longer than in the environment surrounded by some sounds. Before the implementation, we assume that the mouse represents a user-facing "forward”, which is “up” on the screen/website axis. We added momentum to the user’s direction during the implementation, such that when they move their mouse position to the left. The user feels as if it rotates slightly to the right, and then slowly transitions back to forward-facing. This allows users to feel the sounds are surrounding them. Users can better detect the exact position of the aiming object. This is an improvement in usability, users can hear sounds from aiming buttons easier.
-                    <br>
-                    <br>
-                    2. The second that improved was sound stopping function. One of the peers who commented on our computer prototype pointed out that he used two screens while testing our prototype. When he moved from one screen to another screen, the sound was still working. To increase usability, our group fixed the bug that he pointed out. Whenever the cursor was out of the page, all sounds stopped automatically. When the cursor went back to the page, all sounds automatically started again. This is an improvement in usability also such that users can use two screens or multiple pages while using our system.
-                    <br>
-                    <br>
-                    3. The third that improved was our ticking sounds. Peers who gave formative feedback figured out that the ticking sound was not continuous, not quick, and could not be heard clearly. So, we solved this situation by making the ticking sound faster and louder. Besides, we used private methods to solve the bugs of ticking which was the urgent thing to fix in the first place. This is a huge improvement in usability, the users will be glad that we took their suggestions and improved the problems to fit all their wants.
-                    </p>
-                    <br>
-                    <hr>
-                    <br>
-                    <div class="container">
-                        <h3>II. Prototype Revisions</h3>
-                        <br>
-                        <p>Our system requires no installation and runs in the modern browser Google Chrome. 
-                            <br>
-                            <br>
-                            To access our prototype, navigate to the following link:
-                            https://www.cs.mcgill.ca/~lduan5/hci/notebook/comp_proto/welcome.html
-                            <br>
-                            <br>
-                            Please copy and paste the link to a new browser to make sure the audio works.</br>
-                            Username: hci </br>
-                            Password: webimage
-                            <br>
-                            <br>
-                            For visually-impaired folks, we invite you to continue to use your screen reader to follow through with the onboarding process. You will then be sent through to a demo website with no additional text to allow you to have the full sonic experience of OverHear.
-                            </p>
-                            <br>
-                    <hr>
-                    <br>
-                    <div class="container">
-                        <h3>III. Refinement of user manual or installation guide</h3>
-                        <br>
-                        <p> <a href="User Manual and Installation Guide.pdf" download >User Manual and Installation Guide(Alpha System)</a></p>
-                        <br>
-                        <p>As usual, fixing the existing bugs opens up the possibility of new ones; we have yet to see any substantial hit to performance, but we will keep an eye out and adjust as necessary for the next version of the system.</p>
-                        <br>
-                        <br>
-
-
-
-    
+            To access our prototype, navigate to the following link:
+            https://www.cs.mcgill.ca/~lduan5/hci/notebook/comp_proto/welcome.html
+            <br>
+            <br>
+            Please copy and paste the link to a new browser to make sure the audio works.</br>
+            Username: hci </br>
+            Password: webimage
+            <br>
+            <br>
+            For visually-impaired folks, we invite you to continue to use your screen reader to follow through with the
+            onboarding process. You will then be sent through to a demo website with no additional text to allow you to
+            have the full sonic experience of OverHear.
+          </p>
+          <br>
+          <hr>
+          <br>
+          <div class="container">
+            <h3>III. Refinement of user manual or installation guide</h3>
+            <br>
+            <p> <a href="User Manual and Installation Guide.pdf" download>User Manual and Installation Guide(Alpha
+                System)</a></p>
+            <br>
+            <p>As usual, fixing the existing bugs opens up the possibility of new ones; we have yet to see any
+              substantial hit to performance, but we will keep an eye out and adjust as necessary for the next version
+              of the system.</p>
+            <br>
+            <br>
