@@ -165,7 +165,7 @@ window.onload = () => {
 
   // GUI.
   let engineStatusGui = document.createElement("span");
-  engineStatusGui.style = "cursor: pointer; position: absolute; bottom: 10px";
+  engineStatusGui.style = "cursor: pointer; position: fixed; bottom: 10px";
 
   engineStatusGui.addEventListener("click", () => {
 
@@ -201,7 +201,8 @@ window.onload = () => {
     }
   };
 
-  document.body.appendChild(engineStatusGui);
+  let content = document.getElementById("content");
+  content.appendChild(engineStatusGui);
 
   if (typeof localStorage.getItem("isEngineOn") == "undefined" || localStorage.getItem("isEngineOn") === 'true')
     startEngine();
