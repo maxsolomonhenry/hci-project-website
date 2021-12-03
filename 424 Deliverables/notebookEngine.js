@@ -245,7 +245,14 @@ window.onload = () => {
     localStorage.setItem("isEngineOn", true);
 
     //const FILE_PATHS = ['audio/solemn.mp3', 'audio/demonstrative.mp3'];
-    const FILE_PATHS = ['comp_proto/audio/footsteps.wav', 'comp_proto/audio/heels.wav'];
+    const FILE_PATHS = [
+      'comp_proto/audio/footsteps.wav', 
+      'comp_proto/audio/heels.wav',
+      'comp_proto/audio/running-hard.wav',
+      'comp_proto/audio/running-up.wav',
+      'comp_proto/audio/running-gravel.wav',
+      'comp_proto/audio/wood-footstep.wav'
+    ];
 
     dingSource = await (async () => {
       const TIC_TOC_PATH = "comp_proto/audio/ding.wav";
@@ -282,7 +289,9 @@ window.onload = () => {
 
     let navItems = document.getElementsByClassName("nav")[0].getElementsByTagName("li");
     for (var idx in navItems) {
-      let filePath = FILE_PATHS[idx % 2];  // TODO: update this with more files.
+      if (idx == 'length')
+        break;
+      let filePath = FILE_PATHS[idx % 6];  // TODO: update this with more files.
 
       // Find object.
       let element = navItems[idx];
