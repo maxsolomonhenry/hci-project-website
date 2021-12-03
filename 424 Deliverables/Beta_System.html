@@ -1,1 +1,215 @@
-<p>Beta_System</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ECSE424 Group 13 Notebook</title>
+    <link rel='stylesheet' href='bootstrap.min.css'>
+    <link rel='stylesheet'
+        href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .headshot {
+            width: 200px;
+        }
+
+        h3,
+        .h3 {
+            text-align: center;
+            font-size: 150%;
+        }
+
+        .container {
+            text-align: left;
+            font-size: 18px;
+        }
+
+        /* The navigation bar */
+        .container-fluid {
+            overflow: auto;
+            background-color: #263238;
+            position: fixed;
+            /* Set the navbar to fixed position */
+            top: 0;
+            /* Position the navbar at the top of the page */
+            width: 100%;
+            /* Full width */
+        }
+
+        /* Links inside the navbar */
+        .container-fluid a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            width: 400px;
+        }
+
+        /* Change background on mouse-over */
+        .container-fluid a:hover {
+            background: #ddd;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div id="viewport">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <header>
+                <a href="#">Deliverables</a>
+            </header>
+            <ul class="nav">
+                <li>
+                    <a href="index.html">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="Observation.html">
+                        Observations and Proposal
+                    </a>
+                </li>
+                <li>
+                    <a href="l-fi-prototype.html">
+                        Low-Fidelity Prototype and Test Plan
+                    </a>
+                </li>
+                <li>
+                    <a href="Computer-Prototype.html">
+                        Computer Prototype
+                    </a>
+                </li>
+                <li>
+                    <a href="Formative Feedback.html">
+                        Formative Feedback
+                    </a>
+                </li>
+                <li>
+                    <a href="Alpha_System.html">
+                        Alpha System
+                    </a>
+                </li>
+                <li>
+                    <a href="Beta_System.html" class="active">
+                        Beta System
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Content -->
+        <div id="content">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <a href="Alpha_System.html">Prev: Alpha System</a>
+                    <a href="index.html">Home</a>
+                    <a href="index.html">Next: HomePage</a>
+                </div>
+            </nav>
+
+            <h1>Welcome to ECSE424 HCI Group 13 Notebook</h1>
+            <h2>Beta System</h2>
+            <br>
+            <hr>
+            <br>
+            <div class="container">
+                <h3>I. Design Evolution</h3>
+                <br>
+                <p>According to the alpha system feedback from peers, we implement more features and improve existing
+                    features shown as below:
+
+                    <br>
+                    <br>
+                    1. First off, based on previous feedback from classmates, we decided to make the alpha system
+                    website resemble a <b>usual website</b>. Instead of just having 2 buttons, <b>we apply the engine to
+                        our class notebook</b>! Now, with 7 elements (the menu on the left-hand side of the page), the
+                    website contains a design more familiar to sighted users. To see the results, please navigate to our
+                    notebook at: https://www.cs.mcgill.ca/~lduan5/hci/notebook/index.html
+
+                    <br>
+                    <br>
+                    2. The second that improved was <b>multiple sounds’</b> influence. One of the peers gives us
+                    feedback that when the system has multiple sounds, she/he feels that it is hard to identify the
+                    differences between two sounds. So now we assign “class” to each button. In this case, we assign a
+                    “class” of footstep sounds to all menu navigation buttons. As one user suggested, this engine may
+                    not provide precise localization of all of the elements on the page, but rather give a sense of the
+                    layout and the centers of various sorts of activity on this page. When you navigate to our notebook
+                    website, you will immediately get a sense of a cacophony of action happening on the left-hand side
+                    of the page, which should cue the user to navigate in this direction. Besides, many peers were
+                    worried about our system’s multiple sounds’ influence and gave us feedback like “what could happen
+                    if there are multiple sounds like more than two on your website’s page?”. Now, our beta system
+                    answers their questions that we implement three objects on a page and minor the influences between
+                    objects.
+
+                    <br>
+                    <br>
+                    3. Lastly, we demonstrate the idea of a page scraper and how to implement it. In order to accomplish
+                    step 1, we built a simple <b>website scraper</b> into the engine that assigns a new sound to a
+                    limited set of items and learns their position on the page using their bounding rectangle
+                    coordinates, which is part of the DOM. In this way, we demonstrate that it would be fairly
+                    straightforward to extend the engine to arbitrary websites. Ideally, the page scraper will detect
+                    the main interactable features of a webpage, such as buttons, images, titles, items, and map them to
+                    different classes of sounds. For example, all buttons have "ding" sounds, titles have "keyboard
+                    typing" sounds, etc. With a mechanism that scrapes the page and plays specific sounds for each type
+                    of object present, the user would not only be able to identify the position of objects, but also
+                    classify the type of object present on that section of the screen.
+                    <br>
+                    <br>
+                    To use our engine on your website, please see the short paragraph in the user manual entitled
+                    <b>“Beta System Implementation.”</b>
+                </p>
+                <br>
+                <hr>
+                <br>
+                <div class="container">
+                    <h3>II. Prototype Revisions</h3>
+                    <br>
+                    <p>Our system requires no installation and runs in the modern browser Google Chrome.
+                        <br>
+                        <br>
+                        To access our prototype, navigate to the following link:
+                        https://www.cs.mcgill.ca/~lduan5/hci/notebook/comp_proto/welcome.html
+                        <br>
+                        <br>
+                        Please copy and paste the link to a new browser to make sure the audio works.</br>
+                        Username: hci </br>
+                        Password: webimage
+                        <br>
+                        <br>
+                        For visually-impaired folks, we invite you to continue to use your screen reader to follow
+                        through with the
+                        onboarding process. You will then be sent through to a demo website with no additional text to
+                        allow you to
+                        have the full sonic experience of OverHear.
+                    </p>
+                    <br>
+                    <hr>
+                    <br>
+                    <div class="container">
+                        <h3>III. Refinement of user manual or installation guide</h3>
+                        <br>
+                        <p> <a href="User Manual and Installation Guide(Beta System).pdf" download>User Manual and
+                                Installation
+                                Guide(Beta
+                                System)</a></p>
+                        <br>
+                        <p>As usual, fixing the existing bugs opens up the possibility of new ones; we have yet to see
+                            any
+                            substantial hit to performance, but we will keep an eye out and adjust as necessary for the
+                            next version
+                            of the system.</p>
+                        <br>
+                        <br>
