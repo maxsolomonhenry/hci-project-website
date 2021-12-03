@@ -198,10 +198,8 @@ window.onload = () => {
 
       // Remove event listeners.
       buttonElement.removeEventListener("mouseenter", turnOnFocusMode);
-      buttonElement.removeEventListener("mouseleave", turnOffFocusMode);
-      
-}
-
+      buttonElement.removeEventListener("mouseleave", turnOffFocusMode);  
+    }
   };
 
   document.body.appendChild(engineStatusGui);

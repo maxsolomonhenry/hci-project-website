@@ -31,7 +31,7 @@
       let audioCtx = new AudioContext();
 
       let dingSource = await (async () => {
-      const TIC_TOC_PATH = "../audio/ding.wav";
+      const TIC_TOC_PATH = "audio/ding.wav";
       let response = await fetch(TIC_TOC_PATH);
       let audioData = await response.arrayBuffer();
       let audioBuffer = await audioCtx.decodeAudioData(audioData);
