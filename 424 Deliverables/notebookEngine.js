@@ -102,7 +102,7 @@ window.onload = () => {
     };
 
     async createReverb() {
-      const VERB_IR_PATH = "audio/St Nicolaes Church_WET.wav";
+      const VERB_IR_PATH = "comp_proto/audio/St Nicolaes Church_WET.wav";
 
       let convolver = audioCtx.createConvolver();
       let response = await fetch(VERB_IR_PATH);
@@ -187,18 +187,17 @@ window.onload = () => {
     for (let audioObject of audioObjectList)
       audioObject.stop();
 
-    const NUM_BUTTONS = 2;
-    BUTTON_CLASSES = ["button1", "button2"];
-    for (let i = 0; i < NUM_BUTTONS; ++i) {
-      let className = BUTTON_CLASSES[i];
+    let navItems = document.getElementsByClassName("nav")[0].getElementsByTagName("li");
+    for (var idx in navItems) {
+
+      let uniqueId = `uniqueId${idx}`;
 
       // Find object.
-      let buttonElement = document.getElementsByClassName(className);
-      buttonElement = buttonElement[0];
+      let element = document.getElementById(uniqueId);
 
       // Remove event listeners.
-      buttonElement.removeEventListener("mouseenter", turnOnFocusMode);
-      buttonElement.removeEventListener("mouseleave", turnOffFocusMode);  
+      element.removeEventListener("mouseenter", turnOnFocusMode);
+      element.removeEventListener("mouseleave", turnOffFocusMode);  
     }
   };
 
@@ -245,16 +244,18 @@ window.onload = () => {
 
     localStorage.setItem("isEngineOn", true);
 
-    // The following connects the button locations to sounds and objects.
-    // Eventually this will be taken care of by an intermediate module.
-
-    const NUM_BUTTONS = 2;
     //const FILE_PATHS = ['audio/solemn.mp3', 'audio/demonstrative.mp3'];
-    const FILE_PATHS = ['audio/footsteps.wav', 'audio/heels.wav'];
-    const BUTTON_CLASSES = ['button1', 'button2'];
+    const FILE_PATHS = [
+      'comp_proto/audio/footsteps.wav', 
+      'comp_proto/audio/heels.wav',
+      'comp_proto/audio/running-hard.wav',
+      'comp_proto/audio/running-up.wav',
+      'comp_proto/audio/running-gravel.wav',
+      'comp_proto/audio/wood-footstep.wav'
+    ];
 
     dingSource = await (async () => {
-      const TIC_TOC_PATH = "audio/ding.wav";
+      const TIC_TOC_PATH = "comp_proto/audio/ding.wav";
       let response = await fetch(TIC_TOC_PATH);
       let audioData = await response.arrayBuffer();
       let audioBuffer = await audioCtx.decodeAudioData(audioData);
@@ -269,7 +270,7 @@ window.onload = () => {
     dingSource.start();
 
     tictocSource = await (async () => {
-      const TIC_TOC_PATH = "audio/tictoc.wav";
+      const TIC_TOC_PATH = "comp_proto/audio/tictoc.wav";
       let response = await fetch(TIC_TOC_PATH);
       let audioData = await response.arrayBuffer();
       let audioBuffer = await audioCtx.decodeAudioData(audioData);
@@ -286,20 +287,24 @@ window.onload = () => {
     tictocSource.connect(audioCtx.destination);
     tictocSource.start()
 
-    for (let i = 0; i < NUM_BUTTONS; ++i) {
-      let className = BUTTON_CLASSES[i];
-      let filePath = FILE_PATHS[i];
+    let navItems = document.getElementsByClassName("nav")[0].getElementsByTagName("li");
+    for (var idx in navItems) {
+      if (idx == 'length')
+        break;
+      let filePath = FILE_PATHS[idx % 6];  // TODO: update this with more files.
 
       // Find object.
-      let buttonElement = document.getElementsByClassName(className);
-      buttonElement = buttonElement[0];
+      let element = navItems[idx];
 
-      buttonElement.addEventListener("mouseenter", turnOnFocusMode);
-      buttonElement.addEventListener("mouseleave", turnOffFocusMode);
+      element.addEventListener("mouseenter", turnOnFocusMode);
+      element.addEventListener("mouseleave", turnOffFocusMode);
 
-      let [x, y] = getButtonXY(buttonElement);
+      let [x, y] = getXY(element);
 
-      let tmp = await new AudioObject(className, filePath, x, y);
+      let uniqueId = `uniqueId${idx}`;
+      element.setAttribute('id', uniqueId);
+
+      let tmp = await new AudioObject(uniqueId, filePath, x, y);
 
       audioObjectList.push(tmp);
 
@@ -307,9 +312,9 @@ window.onload = () => {
   }
 
   // Return button normalized X, Y as identified by class name.
-  function getButtonXY(buttonElement) {
+  function getXY(element) {
 
-    let rect = buttonElement.getBoundingClientRect();
+    let rect = element.getBoundingClientRect();
 
     // Find center of object.
     let x = rect.x + (rect.width / 2);
@@ -379,12 +384,10 @@ window.onload = () => {
   window.addEventListener('resize', () => {
     for (let audioObject of audioObjectList) {
 
-      let className = audioObject.name;
-
-      let buttonElement = document.getElementsByClassName(className);
-      buttonElement = buttonElement[0];
+      let uniqueId = audioObject.name;
+      let element = document.getElementById(uniqueId);
       
-      let [x, y] = getButtonXY(buttonElement);
+      let [x, y] = getXY(element);
 
       audioObject.x = x;
       audioObject.y = y;
