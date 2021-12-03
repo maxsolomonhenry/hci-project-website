@@ -366,7 +366,7 @@ window.onload = () => {
     let theta = Math.atan(deltaX/ deltaY);
 
     // Debugging.
-    console.log(`theta: ${theta.toFixed(4)}`);
+    // console.log(`theta: ${theta.toFixed(4)}`);
   
     for (let audioObject of audioObjectList) {
       audioObject.updateFromMousePosition(normX, normY, theta);
